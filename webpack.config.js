@@ -8,7 +8,7 @@ module.exports = {
     contentBase: path.join(__dirname, PUBLIC_DIR),
     port: 3340
   },
-  entry: path.resolve(__dirname, 'src', 'index.js'),
+  entry: path.resolve('./src/index.ts'),
   mode: 'development',
   module: {
     rules: [
@@ -20,7 +20,12 @@ module.exports = {
             '@babel/preset-env'
           ]
         },
-        test: /\.js$/
+        test: /\.js$/,
+      },
+      {
+        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
       },
       {
         exclude: /node_modules/,
@@ -36,6 +41,9 @@ module.exports = {
 
       }
     ]
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
     filename: '[name]-[hash].js',

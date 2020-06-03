@@ -1,14 +1,18 @@
 import './style.css';
 import './cytoscape-context-menus.css';
-import cytoscape from './cytoscape.umd';
-import edgehandles from './cytoscape-edgehandles';
-import $ from './jquery-3.5.1.min';
-import contextMenus from './cytoscape-context-menus';
-import cola from 'cytoscape-cola'
+import cytoscape from 'cytoscape';
+import $ from 'jquery';
+//import contextMenus from 'cytoscape-context-menus'
+//import edgehandles from 'cytoscape-edgehandles'
+const cola = require('cytoscape-cola')
+const contextMenus = require('cytoscape-context-menus')
+const edgehandles = require('cytoscape-edgehandles')
 
-cytoscape.use(edgehandles);
-cytoscape.use(contextMenus, $);
-cytoscape.use(cola);
+//cytoscape.use(require('cytoscape-cola'));
+//cytoscape.use(require('cytoscape-context-menus'));
+//cytoscape.use(require('cytoscape-edgehandles'))
+//cytoscape.use(cola);
+cytoscape.use($);
 
 var cy = cytoscape({
 
@@ -76,7 +80,7 @@ var cy = cytoscape({
         {
           selector: '.eh-handle',
           css: {
-            'background-color': 'red',
+            //'background-color': 'red',
             'width': 15,
             'height': 15,
             'shape': 'ellipse',
@@ -110,7 +114,7 @@ var cy = cytoscape({
 
 });
 
-const selectAllOfTheSameType = function (ele) {
+const selectAllOfTheSameType = function (ele : any) {
   cy.elements().unselect()
   if (ele.isNode()) {
     console.log(ele.data())
@@ -125,18 +129,18 @@ const selectAllOfTheSameType = function (ele) {
   }
 }
 
-const eh = cy.edgehandles({
+const eh = edgehandles({
 noEdgeEventsInDraw: true
 });
 
-const contextMenu = cy.contextMenus({
+const contextMenu = contextMenus({
   menuItems: [
     {
       id: 'remover',
       content: 'Remover',
       tooltipText: 'Remove uma ARESTA ou NODO',
       selector: 'node, edge',
-      onClickFunction: function (event) {
+      onClickFunction: function (event : any) {
         var target = event.target || event.cyTarget
         target.remove()
       },
@@ -147,7 +151,7 @@ const contextMenu = cy.contextMenus({
       content: 'hide',
       tooltipText: 'hide',
       selector: '*',
-      onClickFunction: function (event) {
+      onClickFunction: function (event : any) {
         var target = event.target || event.cyTarget
         target.hide()
       },
@@ -158,7 +162,7 @@ const contextMenu = cy.contextMenus({
       content: 'Adicionar nodo INPUT',
       tooltipText: 'Adicione um NODO com a função de input',
       coreAsWell: true,
-      onClickFunction: function (event) {
+      onClickFunction: function (event : any) {
         var data = {
           //group: 'nodes',
           id: Math.round(Math.random() * 100),
