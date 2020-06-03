@@ -1,14 +1,15 @@
 import './style.css';
 import './cytoscape-context-menus.css';
-import cytoscape from './cytoscape.umd';
-import edgehandles from './cytoscape-edgehandles';
-import $ from './jquery-3.5.1.min';
-import contextMenus from './cytoscape-context-menus';
-import cola from 'cytoscape-cola'
+import cytoscape from 'cytoscape';
+import edgehandles from 'cytoscape-edgehandles';
+import contextMenus from 'cytoscape-context-menus';
+import cola from 'cytoscape-cola';
+import $ from 'jquery';
 
 cytoscape.use(edgehandles);
-cytoscape.use(contextMenus, $);
+cytoscape.use(contextMenus,$);
 cytoscape.use(cola);
+
 
 var cy = cytoscape({
 
@@ -142,159 +143,159 @@ const contextMenu = cy.contextMenus({
       },
       hasTrailingDivider: true
     },
-    {
-      id: 'hide',
-      content: 'hide',
-      tooltipText: 'hide',
-      selector: '*',
-      onClickFunction: function (event) {
-        var target = event.target || event.cyTarget
-        target.hide()
-      },
-      disabled: false
-    },
-    {
-      id: 'input-node',
-      content: 'Adicionar nodo INPUT',
-      tooltipText: 'Adicione um NODO com a função de input',
-      coreAsWell: true,
-      onClickFunction: function (event) {
-        var data = {
-          //group: 'nodes',
-          id: Math.round(Math.random() * 100),
-          type: 'input'
-        }
-        var pos = event.position || event.cyPosition
-        cy.add({
-          group: 'nodes',
-          data: data,
-          position: {
-            x: pos.x,
-            y: pos.y
-          },
-          classes: ['input']
-        })
-      }
-    },
-    {
-      id: 'output-node',
-      content: 'Adicionar nodo OUTPUT',
-      tooltipText: 'Adicione um NODO com a função de output',
-      coreAsWell: true,
-      onClickFunction: function (event) {
-        var data = {
-          //group: 'nodes',
-          id: Math.round(Math.random() * 100),
-          type: 'output'
-        }
-        var pos = event.position || event.cyPosition
-        cy.add({
-          group: 'nodes',
-          data: data,
-          position: {
-            x: pos.x,
-            y: pos.y
-          },
-          classes: ['output']
-        })
-      }
-    },
-    {
-      id: 'soma-node',
-      content: 'Adicionar nodo SOMA',
-      tooltipText: 'Adicione um NODO com a função de soma',
-      coreAsWell: true,
-      onClickFunction: function (event) {
-        var data = {
-          //group: 'nodes',
-          id: Math.round(Math.random() * 100),
-          type: '+'
-        }
-        var pos = event.position || event.cyPosition
-        cy.add({
-          group: 'nodes',
-          data: data,
-          position: {
-            x: pos.x,
-            y: pos.y
-          },
-          classes: ['soma']
-        })
-      }
-    },
-    {
-      id: 'subtracao-node',
-      content: 'Adicionar nodo SUBTRAÇÃO',
-      tooltipText: 'Adicione um NODO com a função de subtração',
-      coreAsWell: true,
-      onClickFunction: function (event) {
-        var data = {
-          //group: 'nodes',
-          id: Math.round(Math.random() * 100),
-          type: '-'
-        }
-        var pos = event.position || event.cyPosition
-        cy.add({
-          group: 'nodes',
-          data: data,
-          position: {
-            x: pos.x,
-            y: pos.y
-          },
-          classes: ['subtracao']
-        })
-      }
-    },
-    {
-      id: 'multiplicacao-node',
-      content: 'Adicionar nodo MULTIPLICAÇãO',
-      tooltipText: 'Adicione um NODO com a função de multiplicar',
-      coreAsWell: true,
-      onClickFunction: function (event) {
-        var data = {
-          //group: 'nodes',
-          id: Math.round(Math.random() * 100),
-          type: '*'
-        }
-        var pos = event.position || event.cyPosition
-        cy.add({
-          group: 'nodes',
-          data: data,
-          position: {
-            x: pos.x,
-            y: pos.y
-          },
-          classes: ['multiplicacao']
-        })
-      }
-    },
-    {
-      id: 'remover-selecionado',
-      content: 'Remover selecionados',
-      tooltipText: 'Remover NODOs ou ARESTAS selecionadas',
-      coreAsWell: true,
-      onClickFunction: function (event) {
-        cy.$(':selected').remove()
-      }
-    },
-    {
-      id: 'selecionar-nodos',
-      content: 'Seleciona todos os NODOS do mesmo tipo',
-      tooltipText: 'Selecionar todos os NODOS',
-      selector: 'node',
-      onClickFunction: function (event) {
-        selectAllOfTheSameType(event.target || event.cyTarget)
-      }
-    },
-    {
-      id: 'selecionar-aresta',
-      content: 'Seleciona todas as ARESTAS',
-      tooltipText: 'Seleciona todas as ARESTAS',
-      selector: 'edge',
-      onClickFunction: function (event) {
-        selectAllOfTheSameType(event.target || event.cyTarget)
-      }
-    }
+    // {
+    //   id: 'hide',
+    //   content: 'hide',
+    //   tooltipText: 'hide',
+    //   selector: '*',
+    //   onClickFunction: function (event) {
+    //     var target = event.target || event.cyTarget
+    //     target.hide()
+    //   },
+    //   disabled: false
+    // },
+    // {
+    //   id: 'input-node',
+    //   content: 'Adicionar nodo INPUT',
+    //   tooltipText: 'Adicione um NODO com a função de input',
+    //   coreAsWell: true,
+    //   onClickFunction: function (event) {
+    //     var data = {
+    //       //group: 'nodes',
+    //       id: Math.round(Math.random() * 100),
+    //       type: 'input'
+    //     }
+    //     var pos = event.position || event.cyPosition
+    //     cy.add({
+    //       group: 'nodes',
+    //       data: data,
+    //       position: {
+    //         x: pos.x,
+    //         y: pos.y
+    //       },
+    //       classes: ['input']
+    //     })
+    //   }
+    // },
+    // {
+    //   id: 'output-node',
+    //   content: 'Adicionar nodo OUTPUT',
+    //   tooltipText: 'Adicione um NODO com a função de output',
+    //   coreAsWell: true,
+    //   onClickFunction: function (event) {
+    //     var data = {
+    //       //group: 'nodes',
+    //       id: Math.round(Math.random() * 100),
+    //       type: 'output'
+    //     }
+    //     var pos = event.position || event.cyPosition
+    //     cy.add({
+    //       group: 'nodes',
+    //       data: data,
+    //       position: {
+    //         x: pos.x,
+    //         y: pos.y
+    //       },
+    //       classes: ['output']
+    //     })
+    //   }
+    // },
+    // {
+    //   id: 'soma-node',
+    //   content: 'Adicionar nodo SOMA',
+    //   tooltipText: 'Adicione um NODO com a função de soma',
+    //   coreAsWell: true,
+    //   onClickFunction: function (event) {
+    //     var data = {
+    //       //group: 'nodes',
+    //       id: Math.round(Math.random() * 100),
+    //       type: '+'
+    //     }
+    //     var pos = event.position || event.cyPosition
+    //     cy.add({
+    //       group: 'nodes',
+    //       data: data,
+    //       position: {
+    //         x: pos.x,
+    //         y: pos.y
+    //       },
+    //       classes: ['soma']
+    //     })
+    //   }
+    // },
+    // {
+    //   id: 'subtracao-node',
+    //   content: 'Adicionar nodo SUBTRAÇÃO',
+    //   tooltipText: 'Adicione um NODO com a função de subtração',
+    //   coreAsWell: true,
+    //   onClickFunction: function (event) {
+    //     var data = {
+    //       //group: 'nodes',
+    //       id: Math.round(Math.random() * 100),
+    //       type: '-'
+    //     }
+    //     var pos = event.position || event.cyPosition
+    //     cy.add({
+    //       group: 'nodes',
+    //       data: data,
+    //       position: {
+    //         x: pos.x,
+    //         y: pos.y
+    //       },
+    //       classes: ['subtracao']
+    //     })
+    //   }
+    // },
+    // {
+    //   id: 'multiplicacao-node',
+    //   content: 'Adicionar nodo MULTIPLICAÇãO',
+    //   tooltipText: 'Adicione um NODO com a função de multiplicar',
+    //   coreAsWell: true,
+    //   onClickFunction: function (event) {
+    //     var data = {
+    //       //group: 'nodes',
+    //       id: Math.round(Math.random() * 100),
+    //       type: '*'
+    //     }
+    //     var pos = event.position || event.cyPosition
+    //     cy.add({
+    //       group: 'nodes',
+    //       data: data,
+    //       position: {
+    //         x: pos.x,
+    //         y: pos.y
+    //       },
+    //       classes: ['multiplicacao']
+    //     })
+    //   }
+    // },
+    // {
+    //   id: 'remover-selecionado',
+    //   content: 'Remover selecionados',
+    //   tooltipText: 'Remover NODOs ou ARESTAS selecionadas',
+    //   coreAsWell: true,
+    //   onClickFunction: function (event) {
+    //     cy.$(':selected').remove()
+    //   }
+    // },
+    // {
+    //   id: 'selecionar-nodos',
+    //   content: 'Seleciona todos os NODOS do mesmo tipo',
+    //   tooltipText: 'Selecionar todos os NODOS',
+    //   selector: 'node',
+    //   onClickFunction: function (event) {
+    //     selectAllOfTheSameType(event.target || event.cyTarget)
+    //   }
+    // },
+    // {
+    //   id: 'selecionar-aresta',
+    //   content: 'Seleciona todas as ARESTAS',
+    //   tooltipText: 'Seleciona todas as ARESTAS',
+    //   selector: 'edge',
+    //   onClickFunction: function (event) {
+    //     selectAllOfTheSameType(event.target || event.cyTarget)
+    //   }
+    // }
   ]
 });
 
@@ -324,8 +325,9 @@ cy.add([
   { group: 'nodes', data: { id: 'n5', type: '-' }, position: { x: 700, y: 200 }, classes: ['subtracao'] },
   { group: 'nodes', data: { id: 'n6', type: '+' }, position: { x: 600, y: 200 }, classes: ['soma'] },
 ]);
-console.log(cy.zoom())
 
-document.getElementById('exportar').addEventListener("click", ()=> {
-  console.log("okok")
-});
+// console.log(cy.zoom())
+
+// document.getElementById('exportar').addEventListener("click", ()=> {
+//   console.log("okok")
+// });

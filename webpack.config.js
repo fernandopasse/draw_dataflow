@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PUBLIC_DIR = 'dist'
@@ -45,7 +46,19 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, PUBLIC_DIR, 'index.html')
-    })
+    }),
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery',
+    //   jQuery: 'jquery'
+    // })
   ],
+  // externals: {
+  //   jquery: 'jquery'
+  // },
+  // resolve: {
+  //   alias: {
+  //     jquery: "jquery/src/jquery"
+  //   }
+  // },
   target: 'web'
 }
