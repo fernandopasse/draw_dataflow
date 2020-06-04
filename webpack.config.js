@@ -47,18 +47,18 @@ module.exports = {
       filename: 'index.html',
       template: path.join(__dirname, PUBLIC_DIR, 'index.html')
     }),
-    // new webpack.ProvidePlugin({
-    //   $: 'jquery',
-    //   jQuery: 'jquery'
-    // })
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
   ],
   // externals: {
   //   jquery: 'jquery'
   // },
-  // resolve: {
-  //   alias: {
-  //     jquery: "jquery/src/jquery"
-  //   }
-  // },
+  resolve: {
+    alias: {
+      jquery: "jquery/src/jquery",
+    }
+  },
   target: 'web'
 }
