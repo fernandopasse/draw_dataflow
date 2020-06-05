@@ -1,11 +1,122 @@
 import contextMenus from 'cytoscape-context-menus'
 import $ from 'jquery'
 
-export default function menus(cy,cytoscape) {
+export default function menus(cy,cytoscape,idgen) {
 
     cytoscape.use(contextMenus, $)
 
-    const selectAllOfTheSameType = function (ele) {
+    let treeReduce = function(inputnode) {
+        //console.log(inputnode.data(),inputnode.openNeighborhood('edge').map(ele => ele.data()))
+        let currentEdges = inputnode.openNeighborhood('edge').filter(edge => {
+            return edge.source().data('type') === 'input'
+        })//.sources('[type = "input"]')
+        //console.log(currentEdges)
+        //currentEdges.sources().select()
+        //inputnode.select()
+        let allnodes = currentEdges.sources().add(inputnode)
+        console.log("inputnodes",currentEdges.sources().add(inputnode))
+        //console.log("bbox",bbox)
+        let nodesarray = currentEdges.sources().map(node => { 
+            return {
+                group: 'nodes',
+                data: node.data(),
+                classes: ['input']
+            }
+        })
+        
+        let bbox = allnodes.boundingBox()
+        let position = {
+            x: (bbox.x1 + bbox.x2)/2,
+            y: (bbox.y1 + bbox.y2)/2
+        }
+        //console.log(nodesarray)
+        let arrlength = nodesarray.length
+        let links = []
+        let newnodes = []
+        let t_node = {}
+        while(arrlength > 2) {
+            if( arrlength % 2 === 0 ) {
+                for( let i = 0; i < arrlength/2; i++) {
+                    console.log("i",i)
+                    let nid = `${idgen.next}`
+                    t_node = {
+                        group: 'nodes',
+                        data: { id: nid, type: '+' },
+                        //position : position,
+                        classes: ['soma','dagre'],
+                    }
+                    links.push({
+                        group: 'edges',
+                        data: { id: `${idgen.next}`, source: nodesarray[2*i].data.id, target: nid }
+                    },{
+                        group: 'edges',
+                        data: { id: `${idgen.next}`, source: nodesarray[2*i+1].data.id, target: nid }
+                    })
+                    nodesarray[i] = t_node
+                    newnodes.push(t_node)
+                }
+                console.log(newnodes)
+                console.log("last el",nodesarray[arrlength/2-1])
+                arrlength /= 2
+            } else {
+                arrlength -=1
+                for( let i = 0; i < arrlength/2; i++) {
+                    //console.log("i",i,arrlength/2)
+                    let nid = `${idgen.next}`
+                    t_node = {
+                        group: 'nodes',
+                        data: { id: nid, type: '+' },
+                        //position : position,
+                        classes: ['soma','dagre'],
+                    }
+                    links.push({
+                        group: 'edges',
+                        data: { id: `${idgen.next}`, source: nodesarray[2*i].data.id, target: nid }
+                    },{
+                        group: 'edges',
+                        data: { id: `${idgen.next}`, source: nodesarray[2*i+1].data.id, target: nid }
+                    })
+                    nodesarray[i] = t_node
+                    newnodes.push(t_node)
+                }
+                nodesarray[arrlength/2] = nodesarray[arrlength]
+                arrlength = arrlength/2 + 1       
+            }
+        }
+    
+        //console.log("nodes",nodesarray[0].data,nodesarray[1],nodesarray)
+        links.push({
+            group: 'edges',
+            data: { id: `${idgen.next}`, source: nodesarray[0].data.id, target: inputnode.id() }
+        },{
+            group: 'edges',
+            data: { id: `${idgen.next}`, source: nodesarray[1].data.id, target: inputnode.id() }
+        })
+    
+        currentEdges.remove()
+        // console.log("incomers",inputnode.incomers().filter((edge) => {
+        //     edge.
+        // }))
+        newnodes = cy.add(newnodes)
+        cy.add(links)
+
+        allnodes.union(newnodes)
+        inputnode.removeClass('reduce')
+        cy.layout({
+        //allnodes.union(newnodes).layout({
+            name: 'cose',
+            animate: true,
+            fit: true,
+            //boundingBox: allnodes.boundingBox(),
+        }).run()
+
+        // console.log(links)
+        // console.log(newnodes)    
+    } //.addClass('selected')
+
+
+
+    let selectAllOfTheSameType = function (ele) {
         cy.elements().unselect()
         if (ele.isNode()) {
             console.log(ele.data())
@@ -19,7 +130,6 @@ export default function menus(cy,cytoscape) {
             cy.edges().select()
         }
     }
-
 
     cy.contextMenus({
         menuItems: [
@@ -187,6 +297,15 @@ export default function menus(cy,cytoscape) {
                     selectAllOfTheSameType(event.target || event.cyTarget)
                 },
             },
+            {
+                id: 'reduzir',
+                content: 'Reduzir operação',
+                tooltipText: 'Reduzir operação',
+                selector: '.reduce',
+                onClickFunction: function (event) {
+                    treeReduce(event.target || event.cyTarget)
+                },
+            }
         ],
     })
 }

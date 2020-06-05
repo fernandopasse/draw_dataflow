@@ -89,6 +89,13 @@ let initconfig = {
                 'border-color': '#002171',
             },
         },
+        {
+            selector: '.reduce',
+            css: {
+                'border-color': '#1b5e20',
+                'border-width': 3
+            },
+        },
     ],
 
     elements: {
@@ -96,84 +103,81 @@ let initconfig = {
             {
                 group: 'nodes',
                 data: { id: 'n0', type: '-' },
-                position: { x: 700, y: 100 },
                 classes: ['subtracao'],
             },
             {
                 group: 'nodes',
                 data: { id: 'n1', type: '-' },
-                position: { x: 800, y: 200 },
                 classes: ['subtracao'],
             },
             {
                 group: 'nodes',
-                data: { id: 'n2', type: 'input' },
-                position: { x: 600, y: 300 },
+                data: { id: 'i1', type: 'input' },
                 classes: ['input'],
             },
             {
                 group: 'nodes',
-                data: { id: 'n3', type: 'input' },
-                position: { x: 700, y: 400 },
+                data: { id: 'i2', type: 'input' },
                 classes: ['input'],
             },
             {
                 group: 'nodes',
-                data: { id: 'n4', type: 'input' },
-                position: { x: 700, y: 300 },
+                data: { id: 'i3', type: 'input' },
                 classes: ['input'],
             },
             {
                 group: 'nodes',
-                data: { id: 'n5', type: 'input' },
-                position: { x: 700, y: 200 },
+                data: { id: 'i4', type: 'input' },
                 classes: ['input'],
             },
             {
                 group: 'nodes',
                 data: { id: 'n6', type: '+' },
-                position: { x: 600, y: 200 },
                 classes: ['soma'],
             },
             {
                 group: 'nodes',
                 data: { id: 'n7', type: '+' },
-                position: { x: 800, y: 400 },
                 classes: ['soma'],
             },
             {
                 group: 'nodes',
-                data: { id: 'n8', type: 'input' },
+                data: { id: 'i5', type: 'input' },
                 classes: ['input'],
             },
         ],
         edges: [
             {
                 group: 'edges',
-                data: { id: 'e0', source: 'n2', target: 'n6' },
+                data: { id: 'e0', source: 'i1', target: 'n6' },
             },
             {
                 group: 'edges',
-                data: { id: 'e1', source: 'n3', target: 'n6' },
+                data: { id: 'e1', source: 'i2', target: 'n6' },
             },
             {
                 group: 'edges',
-                data: { id: 'e2', source: 'n4', target: 'n6' },
+                data: { id: 'e2', source: 'i3', target: 'n6' },
             },
             {
                 group: 'edges',
-                data: { id: 'e3', source: 'n5', target: 'n6' },
+                data: { id: 'e3', source: 'i4', target: 'n6' },
             },
             {
                 group: 'edges',
                 data: { id: 'e4', source: 'n6', target: 'n1' },
             },
-            {
-                group: 'edges',
-                data: { id: 'e5', source: 'n8', target: 'n6' },
-            },
+            // {
+            //     group: 'edges',
+            //     data: { id: 'e5', source: 'i5', target: 'n6' },
+            // },
         ],
     },
 }
 
+initconfig.elements.nodes.forEach(node => {
+    if(node.data.type === '+' || node.data.type === '*') {
+        node.classes.push('reducible');
+    }
+})
 export default initconfig
