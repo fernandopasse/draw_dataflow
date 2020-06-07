@@ -5,6 +5,12 @@ export default function menus(cy,cytoscape,idgen) {
 
     cytoscape.use(contextMenus, $)
 
+
+    let exportNodes = function(cyJson) {
+        
+    }
+
+
     let treeReduce = function(inputnode) {
         //console.log(inputnode.data(),inputnode.openNeighborhood('edge').map(ele => ele.data()))
         let currentEdges = inputnode.openNeighborhood('edge').filter(edge => {
