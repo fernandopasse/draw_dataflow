@@ -4,7 +4,7 @@ export default class ElCounter {
     }
 
     get next() {
-        this.counter+=1
+        this.counter += 1
         return this.counter.toString();
     }
 }

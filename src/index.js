@@ -31,13 +31,42 @@ entradaNode.onchange = e => {
     const files = e.target.files;
     if (!files) return;
     const reader = new FileReader();
-    cy.remove('node');
-    cy.remove('edge');
-    cy.removeData();
     reader.onload = (e) => {
         let nodes = JSON.parse(e.target.result);
-        console.log(nodes);
+        let map = [];
         nodes.forEach(e => {
+            if(e.group == 'nodes')
+                if(map[e.data.id] == undefined){
+                    map[e.data.id] = `${idgen.next}`
+                    e.data.id = map[e.data.id]
+                }else{
+                    e.data.id = map[e.data.id]
+                }
+            
+            if(e.group == 'edges'){
+
+                if(map[e.data.id] == undefined){
+                    map[e.data.id] = `${idgen.next}`
+                    e.data.id = map[e.data.id]
+                }else{
+                    e.data.id = map[e.data.id]
+                }
+    
+                if(map[e.data.source] == undefined){
+                    map[e.data.source] = `${idgen.next}`
+                    e.data.source = map[e.data.source]
+                }else{
+                    e.data.source = map[e.data.source]
+                }
+                
+                if(map[e.data.target] == undefined){
+                    map[e.data.target] = `${idgen.next}`
+                    e.data.target = map[e.data.target]
+                }else{
+                    e.data.target = map[e.data.target]
+                }
+
+            }
             cy.add(e);
         });
     };

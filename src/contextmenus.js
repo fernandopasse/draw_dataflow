@@ -143,7 +143,7 @@ export default function menus(cy, cytoscape, idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['input'],
+                        classes: [`${data.type}`],
                     })
                 },
             },
@@ -166,7 +166,7 @@ export default function menus(cy, cytoscape, idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['output'],
+                        classes: [`${data.type}`],
                     })
                 },
             },
@@ -189,7 +189,7 @@ export default function menus(cy, cytoscape, idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['add'],
+                        classes: [`${data.type}`],
                     })
                 },
             },
@@ -212,7 +212,7 @@ export default function menus(cy, cytoscape, idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['addi'],
+                        classes: [`${data.type}`],
                     })
                 },
             },
@@ -235,7 +235,7 @@ export default function menus(cy, cytoscape, idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['sub'],
+                        classes: [`${data.type}`],
                     })
                 },
             },
@@ -257,7 +257,7 @@ export default function menus(cy, cytoscape, idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['mult'],
+                        classes: [`${data.type}`],
                     })
                     //cy.$('nodes').forEach((node) => console.log(node.data()))
                 },
