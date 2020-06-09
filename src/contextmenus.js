@@ -194,6 +194,144 @@ export default function menus(cy, cytoscape, idgen) {
                 },
             },
             {
+                id: 'and-node',
+                content: 'Adicionar nodo AND',
+                tooltipText: 'Adicione um NODO com a função de and',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var data = {
+                        //group: 'nodes',
+                        //id: Math.round(Math.random() * 100),
+                        type: 'and',
+                    }
+                    var pos = event.position || event.cyPosition
+                    cy.add({
+                        group: 'nodes',
+                        data: data,
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                        classes: [`${data.type}`],
+                    })
+                },
+            },
+            {
+                id: 'min-node',
+                content: 'Adicionar nodo MIN',
+                tooltipText: 'Adicione um NODO com a função de min',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var data = {
+                        //group: 'nodes',
+                        //id: Math.round(Math.random() * 100),
+                        type: 'min',
+                    }
+                    var pos = event.position || event.cyPosition
+                    cy.add({
+                        group: 'nodes',
+                        data: data,
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                        classes: [`${data.type}`],
+                    })
+                },
+            },
+            {
+                id: 'max-node',
+                content: 'Adicionar nodo MAX',
+                tooltipText: 'Adicione um NODO com a função de max',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var data = {
+                        //group: 'nodes',
+                        //id: Math.round(Math.random() * 100),
+                        type: 'max',
+                    }
+                    var pos = event.position || event.cyPosition
+                    cy.add({
+                        group: 'nodes',
+                        data: data,
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                        classes: [`${data.type}`],
+                    })
+                },
+            },
+            {
+                id: 'not-node',
+                content: 'Adicionar nodo NOT',
+                tooltipText: 'Adicione um NODO com a função de not',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var data = {
+                        //group: 'nodes',
+                        //id: Math.round(Math.random() * 100),
+                        type: 'not',
+                    }
+                    var pos = event.position || event.cyPosition
+                    cy.add({
+                        group: 'nodes',
+                        data: data,
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                        classes: [`${data.type}`],
+                    })
+                },
+            },
+            {
+                id: 'soma-node',
+                content: 'Adicionar nodo OR',
+                tooltipText: 'Adicione um NODO com a função de or',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var data = {
+                        //group: 'nodes',
+                        //id: Math.round(Math.random() * 100),
+                        type: 'or',
+                    }
+                    var pos = event.position || event.cyPosition
+                    cy.add({
+                        group: 'nodes',
+                        data: data,
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                        classes: [`${data.type}`],
+                    })
+                },
+            },
+            {
+                id: 'xor-node',
+                content: 'Adicionar nodo XOR',
+                tooltipText: 'Adicione um NODO com a função de xor',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var data = {
+                        //group: 'nodes',
+                        //id: Math.round(Math.random() * 100),
+                        type: 'xor',
+                    }
+                    var pos = event.position || event.cyPosition
+                    cy.add({
+                        group: 'nodes',
+                        data: data,
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                        classes: [`${data.type}`],
+                    })
+                },
+            },
+            {
                 id: 'soma-node-inteiro',
                 content: 'Adicionar nodo SOMA com inteiro',
                 tooltipText: 'Adicione um NODO com a função de soma',

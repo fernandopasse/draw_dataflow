@@ -9,6 +9,55 @@ let initconfig = {
 
     style: [
         {
+            selector: '.abs',
+            css: {
+                'background-color': '#fff',
+                'background-image': './images/abs.png',
+            },
+        },
+        {
+            selector: '.xor',
+            css: {
+                'background-color': '#fff',
+                'background-image': './images/xor.png',
+            },
+        },
+        {
+            selector: '.or',
+            css: {
+                'background-color': '#fff',
+                'background-image': './images/or.png',
+            },
+        },
+        {
+            selector: '.not',
+            css: {
+                'background-color': '#fff',
+                'background-image': './images/not.png',
+            },
+        },
+        {
+            selector: '.min',
+            css: {
+                'background-color': '#fff',
+                'background-image': './images/min.png',
+            },
+        },
+        {
+            selector: '.max',
+            css: {
+                'background-color': '#fff',
+                'background-image': './images/max.png',
+            },
+        },
+        {
+            selector: '.and',
+            css: {
+                'background-color': '#fff',
+                'background-image': './images/and.png',
+            },
+        },
+        {
             selector: '.add',
             css: {
                 'background-color': '#fff',

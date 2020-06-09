@@ -33,44 +33,39 @@ entradaNode.onchange = e => {
     const reader = new FileReader();
     reader.onload = (e) => {
         let nodes = JSON.parse(e.target.result);
-        let map = [];
-
+        let map = []
         nodes.forEach(e => {
             if(e.group == 'nodes'){
                 if(map[e.data.id] === undefined){
                     map[e.data.id] = `${idgen.next}`
-                    e.data.id = map[e.data.id]
+                    e.data.id =  map[e.data.id]
+                    cy.add(e);
                 }else{
-                    console.log('nodo repetido:' + e.data.id)
+                    throw "Não pode continuar o processamento do arquivo!"
                 }
             }
-            cy.add(e);
         });
 
         nodes.forEach(e => {
             if(e.group == 'edges'){
-                if(map[e.data.id] === undefined){
-                    map[e.data.id] = `${idgen.next}`
-                    e.data.id = map[e.data.id]
+                if(map[e.data.id] !== undefined && map[e.data.source] === undefined && map[e.data.target] === undefined){
+                    throw "Não pode continuar o processamento do arquivo!"
                 }else{
-                    console.log('aresta repetido:' + e.data.id)
-                    //e.data.id = map[e.data.id]
-                }
-
-                if(map[e.data.source] === undefined){
-                    console.log('erro na aresta')
-                }else{
+                    e.data.id = `${idgen.next}`
                     e.data.source = map[e.data.source]
-                }
-
-                if(map[e.data.target] === undefined){
-                    console.log('erro na aresta')
-                }else{
                     e.data.target = map[e.data.target]
+                    cy.add(e)
                 }
             }
-            cy.add(e);
         })
+
+        cy.layout({
+            //allnodes.union(newNodes).layout({
+                name: 'cola',
+                animate: true,
+                fit: false,
+                //boundingBox: bbox
+            }).run()
         
     };
     reader.readAsText(files[0]);
