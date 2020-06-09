@@ -67,12 +67,13 @@ cy.filter((node) => {
     return ((node.data('type') === "add" || node.data('type') === "mult" ) && node.indegree() > 2)
 }).addClass("reduce")
 
-document.getElementById('export').addEventListener("click", ()=> {
+$('#export').click(() => {
         const json = cy.elements().jsons();
         const blob = new Blob([JSON.stringify(json)], {type: "application/json;charset=utf-8"});
         saveAs(blob, 'circuit.json');
 });
 
-document.getElementById('import').addEventListener("click", () => {
+$('#import').click(() => {
     entradaNode.click();
 });
+
