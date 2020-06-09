@@ -8,21 +8,28 @@ let initconfig = {
 
     style: [
         {
-            selector: '.soma',
+            selector: '.add',
             css: {
                 'background-color': '#fff',
                 'background-image': './images/add.png',
             },
         },
         {
-            selector: '.subtracao',
+            selector: '.addi',
+            css: {
+                'background-color': '#fff',
+                // 'background-image': './images/add.png',
+            },
+        },
+        {
+            selector: '.sub',
             css: {
                 'background-color': '#fff',
                 'background-image': './images/minus.png',
             },
         },
         {
-            selector: '.multiplicacao',
+            selector: '.mult',
             css: {
                 'background-color': '#fff',
                 'background-image': './images/multiply.png',
@@ -102,13 +109,13 @@ let initconfig = {
         nodes: [
             {
                 group: 'nodes',
-                data: { id: 'n0', type: '-' },
-                classes: ['subtracao'],
+                data: { id: 'n0', type: 'sub' },
+                classes: ['sub'],
             },
             {
                 group: 'nodes',
-                data: { id: 'n1', type: '-' },
-                classes: ['subtracao'],
+                data: { id: 'n1', type: 'sub' },
+                classes: ['sub'],
             },
             {
                 group: 'nodes',
@@ -132,13 +139,13 @@ let initconfig = {
             },
             {
                 group: 'nodes',
-                data: { id: 'n6', type: '+' },
-                classes: ['soma'],
+                data: { id: 'n6', type: 'add' },
+                classes: ['add'],
             },
             {
                 group: 'nodes',
-                data: { id: 'n7', type: '+' },
-                classes: ['soma'],
+                data: { id: 'n7', type: 'add' },
+                classes: ['add'],
             },
             {
                 group: 'nodes',
@@ -176,7 +183,7 @@ let initconfig = {
 }
 
 initconfig.elements.nodes.forEach(node => {
-    if(node.data.type === '+' || node.data.type === '*') {
+    if(node.data.type === 'add' || node.data.type === 'mult') {
         node.classes.push('reducible');
     }
 })

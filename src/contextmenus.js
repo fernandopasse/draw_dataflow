@@ -1,15 +1,9 @@
 import contextMenus from 'cytoscape-context-menus'
 import $ from 'jquery'
 
-export default function menus(cy,cytoscape,idgen) {
+export default function menus(cy, cytoscape, idgen) {
 
     cytoscape.use(contextMenus, $)
-
-
-    let exportNodes = function(cyJson) {
-        
-    }
-
 
     let treeReduce = function(inputnode) {
         //console.log(inputnode.data(),inputnode.openNeighborhood('edge').map(ele => ele.data()))
@@ -20,7 +14,7 @@ export default function menus(cy,cytoscape,idgen) {
         //currentEdges.sources().select()
         //inputnode.select()
         let allnodes = currentEdges.sources().add(inputnode)
-        console.log("inputnodes",currentEdges.sources().add(inputnode))
+        console.log("inputnodes", currentEdges.sources().add(inputnode))
         //console.log("bbox",bbox)
         let nodesarray = currentEdges.sources().map(node => { 
             return {
@@ -47,9 +41,9 @@ export default function menus(cy,cytoscape,idgen) {
                     let nid = `${idgen.next}`
                     t_node = {
                         group: 'nodes',
-                        data: { id: nid, type: '+' },
+                        data: { id: nid, type: 'add' },
                         //position : position,
-                        classes: ['soma','dagre'],
+                        classes: ['add','dagre'],
                     }
                     links.push({
                         group: 'edges',
@@ -71,9 +65,9 @@ export default function menus(cy,cytoscape,idgen) {
                     let nid = `${idgen.next}`
                     t_node = {
                         group: 'nodes',
-                        data: { id: nid, type: '+' },
+                        data: { id: nid, type: 'add' },
                         //position : position,
-                        classes: ['soma','dagre'],
+                        classes: ['add','dagre'],
                     }
                     links.push({
                         group: 'edges',
@@ -154,7 +148,7 @@ export default function menus(cy,cytoscape,idgen) {
                 id: 'hide',
                 content: 'hide',
                 tooltipText: 'hide',
-                selector: '*',
+                selector: 'node, edge',
                 onClickFunction: function (event) {
                     var target = event.target || event.cyTarget
                     target.hide()
@@ -216,7 +210,7 @@ export default function menus(cy,cytoscape,idgen) {
                     var data = {
                         //group: 'nodes',
                         //id: Math.round(Math.random() * 100),
-                        type: '+',
+                        type: 'add',
                     }
                     var pos = event.position || event.cyPosition
                     cy.add({
@@ -226,7 +220,30 @@ export default function menus(cy,cytoscape,idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['soma'],
+                        classes: ['add'],
+                    })
+                },
+            },
+            {
+                id: 'soma-node-inteiro',
+                content: 'Adicionar nodo SOMA com inteiro',
+                tooltipText: 'Adicione um NODO com a função de soma',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var data = {
+                        //group: 'nodes',
+                        //id: Math.round(Math.random() * 100),
+                        type: 'addi',
+                    }
+                    var pos = event.position || event.cyPosition
+                    cy.add({
+                        group: 'nodes',
+                        data: data,
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                        classes: ['addi'],
                     })
                 },
             },
@@ -239,7 +256,7 @@ export default function menus(cy,cytoscape,idgen) {
                     var data = {
                         //group: 'nodes',
                         //id: Math.round(Math.random() * 100),
-                        type: '-',
+                        type: 'sub',
                     }
                     var pos = event.position || event.cyPosition
                     cy.add({
@@ -249,7 +266,7 @@ export default function menus(cy,cytoscape,idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['subtracao'],
+                        classes: ['sub'],
                     })
                 },
             },
@@ -261,7 +278,7 @@ export default function menus(cy,cytoscape,idgen) {
                 onClickFunction: function (event) {
                     var data = {
                         //group: 'nodes',
-                        type: '*',
+                        type: 'mult',
                     }
                     var pos = event.position || event.cyPosition
                     cy.add({
@@ -271,7 +288,7 @@ export default function menus(cy,cytoscape,idgen) {
                             x: pos.x,
                             y: pos.y,
                         },
-                        classes: ['multiplicacao'],
+                        classes: ['mult'],
                     })
                     //cy.$('nodes').forEach((node) => console.log(node.data()))
                 },
