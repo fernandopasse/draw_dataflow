@@ -4,6 +4,7 @@ let initconfig = {
     layout: {
         name: 'cola',
         fit: false,
+        maxSimulationTime: 1000,
     },
 
     style: [
@@ -182,9 +183,4 @@ let initconfig = {
     },
 }
 
-initconfig.elements.nodes.forEach(node => {
-    if(node.data.type === 'add' || node.data.type === 'mult') {
-        node.classes.push('reducible');
-    }
-})
 export default initconfig

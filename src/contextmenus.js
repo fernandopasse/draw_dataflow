@@ -5,113 +5,76 @@ export default function menus(cy, cytoscape, idgen) {
 
     cytoscape.use(contextMenus, $)
 
-    let treeReduce = function(inputnode) {
-        //console.log(inputnode.data(),inputnode.openNeighborhood('edge').map(ele => ele.data()))
-        let currentEdges = inputnode.openNeighborhood('edge').filter(edge => {
-            return edge.source().data('type') === 'input'
-        })//.sources('[type = "input"]')
-        //console.log(currentEdges)
-        //currentEdges.sources().select()
-        //inputnode.select()
-        let allnodes = currentEdges.sources().add(inputnode)
-        console.log("inputnodes", currentEdges.sources().add(inputnode))
-        //console.log("bbox",bbox)
-        let nodesarray = currentEdges.sources().map(node => { 
-            return {
-                group: 'nodes',
-                data: node.data(),
-                classes: ['input']
-            }
-        })
-        
+    let treeReduce = function(opnode) {
+        //console.log(opnode.data(),opnode.openNeighborhood('edge').map(ele => ele.data()))
+        let currentEdges = opnode.incomers('edge') 
+        let nodesarray = currentEdges.sources()
+        let nodetype = opnode.data('type')
+        let nodeclass = ( nodetype === '+' ? 'add' : 'mult')
+       
+        let allnodes = nodesarray.add(opnode)
         let bbox = allnodes.boundingBox()
+
         let position = {
             x: (bbox.x1 + bbox.x2)/2,
             y: (bbox.y1 + bbox.y2)/2
         }
-        //console.log(nodesarray)
+        
         let arrlength = nodesarray.length
-        let links = []
-        let newnodes = []
-        let t_node = {}
+        let newEdges = cy.collection()
+        let newNodes = cy.collection()
+        let newNode;
+        nodesarray = nodesarray//.toArray()
         while(arrlength > 2) {
+            for( let i = 0; i < parseInt(arrlength/2); i++) {
+                console.log("i",i)
+                let nid = `${idgen.next}`
+                newNode = cy.add({
+                    group: 'nodes',
+                    data: { id: nid, type: nodetype },
+                    //position : position,
+                    classes: [nodeclass],
+                })//.toArray()[0]
+                newEdges = newEdges.union(cy.add([{
+                    group: 'edges',
+                    data: { id: `${idgen.next}`, source: nodesarray[2*i].id(), target: nid }
+                },{
+                    group: 'edges',
+                    data: { id: `${idgen.next}`, source: nodesarray[2*i+1].id(), target: nid }
+                }]))
+
+                nodesarray[i] = newNode
+                newNodes = newNodes.add(newNode)
+            }
+           
             if( arrlength % 2 === 0 ) {
-                for( let i = 0; i < arrlength/2; i++) {
-                    console.log("i",i)
-                    let nid = `${idgen.next}`
-                    t_node = {
-                        group: 'nodes',
-                        data: { id: nid, type: 'add' },
-                        //position : position,
-                        classes: ['add','dagre'],
-                    }
-                    links.push({
-                        group: 'edges',
-                        data: { id: `${idgen.next}`, source: nodesarray[2*i].data.id, target: nid }
-                    },{
-                        group: 'edges',
-                        data: { id: `${idgen.next}`, source: nodesarray[2*i+1].data.id, target: nid }
-                    })
-                    nodesarray[i] = t_node
-                    newnodes.push(t_node)
-                }
-                console.log(newnodes)
-                console.log("last el",nodesarray[arrlength/2-1])
                 arrlength /= 2
             } else {
                 arrlength -=1
-                for( let i = 0; i < arrlength/2; i++) {
-                    //console.log("i",i,arrlength/2)
-                    let nid = `${idgen.next}`
-                    t_node = {
-                        group: 'nodes',
-                        data: { id: nid, type: 'add' },
-                        //position : position,
-                        classes: ['add','dagre'],
-                    }
-                    links.push({
-                        group: 'edges',
-                        data: { id: `${idgen.next}`, source: nodesarray[2*i].data.id, target: nid }
-                    },{
-                        group: 'edges',
-                        data: { id: `${idgen.next}`, source: nodesarray[2*i+1].data.id, target: nid }
-                    })
-                    nodesarray[i] = t_node
-                    newnodes.push(t_node)
-                }
                 nodesarray[arrlength/2] = nodesarray[arrlength]
                 arrlength = arrlength/2 + 1       
             }
         }
     
-        //console.log("nodes",nodesarray[0].data,nodesarray[1],nodesarray)
-        links.push({
+        newEdges = newEdges.union(cy.add([{
             group: 'edges',
-            data: { id: `${idgen.next}`, source: nodesarray[0].data.id, target: inputnode.id() }
+            data: { id: `${idgen.next}`, source: nodesarray[0].data("id"), target: opnode.id() }
         },{
             group: 'edges',
-            data: { id: `${idgen.next}`, source: nodesarray[1].data.id, target: inputnode.id() }
-        })
-    
+            data: { id: `${idgen.next}`, source: nodesarray[1].data("id"), target: opnode.id() }
+        }]))
+            
         currentEdges.remove()
-        // console.log("incomers",inputnode.incomers().filter((edge) => {
-        //     edge.
-        // }))
-        newnodes = cy.add(newnodes)
-        cy.add(links)
-
-        allnodes.union(newnodes)
-        inputnode.removeClass('reduce')
+        opnode.removeClass('reduce')
         cy.layout({
-        //allnodes.union(newnodes).layout({
-            name: 'cose',
+        //allnodes.union(newNodes).layout({
+            name: 'cola',
             animate: true,
-            fit: true,
-            //boundingBox: allnodes.boundingBox(),
+            fit: false,
+            //boundingBox: bbox
         }).run()
 
-        // console.log(links)
-        // console.log(newnodes)    
+    
     } //.addClass('selected')
 
 
@@ -128,6 +91,12 @@ export default function menus(cy, cytoscape, idgen) {
             //console.log(cy.$(':selected'))
         } else if (ele.isEdge()) {
             cy.edges().select()
+        }
+    }
+
+    let checkReduce = (node) => {
+        if(node.indegree() > 2) {
+            node.addClass('reduce')
         }
     }
 

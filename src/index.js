@@ -50,37 +50,22 @@ const eh = cy.edgehandles({
     noEdgeEventsInDraw: true,
 })
 
+cy.on('ehcomplete', (event, sourceNode, targetNode, addedEles) => {
+    if(targetNode.data('type') === "add" || targetNode.data('type') === "mult")
+        if(targetNode.indegree() > 2) {
+            targetNode.addClass('reduce')
+        }
+        console.log(targetNode.classes())
+});
+
 let layoutopt = {
     name: 'cola',
     fit: false,
 }
 
-// var data = {
-//   group: 'nodes',
-//   id: Math.round(Math.random() * 100),
-//   type: '*'
-// }
-// var pos = event.position || event.cyPosition
-// cy.add({
-//   data: data,
-//   position: {
-//     x: pos.x,
-//     y: pos.y
-//   },
-//   classes: ['multiplicacao']
-// })
-// }
-
-let reducible = function() {
-    cy.$('.reducible').forEach(node => {
-        console.log(node)
-        if(node.indegree() > 2) {
-            node.addClass('reduce')
-        }
-    })
-}
-
-reducible()
+cy.filter((node) => {
+    return ((node.data('type') === "add" || node.data('type') === "mult" ) && node.indegree() > 2)
+}).addClass("reduce")
 
 document.getElementById('export').addEventListener("click", ()=> {
         const json = cy.elements().jsons();
