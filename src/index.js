@@ -34,41 +34,44 @@ entradaNode.onchange = e => {
     reader.onload = (e) => {
         let nodes = JSON.parse(e.target.result);
         let map = [];
+
         nodes.forEach(e => {
-            if(e.group == 'nodes')
-                if(map[e.data.id] == undefined){
+            if(e.group == 'nodes'){
+                if(map[e.data.id] === undefined){
                     map[e.data.id] = `${idgen.next}`
                     e.data.id = map[e.data.id]
                 }else{
-                    e.data.id = map[e.data.id]
+                    console.log('nodo repetido:' + e.data.id)
                 }
-            
-            if(e.group == 'edges'){
-
-                if(map[e.data.id] == undefined){
-                    map[e.data.id] = `${idgen.next}`
-                    e.data.id = map[e.data.id]
-                }else{
-                    e.data.id = map[e.data.id]
-                }
-    
-                if(map[e.data.source] == undefined){
-                    map[e.data.source] = `${idgen.next}`
-                    e.data.source = map[e.data.source]
-                }else{
-                    e.data.source = map[e.data.source]
-                }
-                
-                if(map[e.data.target] == undefined){
-                    map[e.data.target] = `${idgen.next}`
-                    e.data.target = map[e.data.target]
-                }else{
-                    e.data.target = map[e.data.target]
-                }
-
             }
             cy.add(e);
         });
+
+        nodes.forEach(e => {
+            if(e.group == 'edges'){
+                if(map[e.data.id] === undefined){
+                    map[e.data.id] = `${idgen.next}`
+                    e.data.id = map[e.data.id]
+                }else{
+                    console.log('aresta repetido:' + e.data.id)
+                    //e.data.id = map[e.data.id]
+                }
+
+                if(map[e.data.source] === undefined){
+                    console.log('erro na aresta')
+                }else{
+                    e.data.source = map[e.data.source]
+                }
+
+                if(map[e.data.target] === undefined){
+                    console.log('erro na aresta')
+                }else{
+                    e.data.target = map[e.data.target]
+                }
+            }
+            cy.add(e);
+        })
+        
     };
     reader.readAsText(files[0]);
 }
