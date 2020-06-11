@@ -3,7 +3,7 @@ import './navbar-top.css'
 import 'bootstrap';
 import 'popper.js';
 import "bootstrap/scss/bootstrap.scss";
-import './cytoscape-context-menus.css'
+//import './cytoscape-context-menus.css'
 import { saveAs } from 'file-saver';
 import cytoscape from 'cytoscape'
 import edgehandles from 'cytoscape-edgehandles'

@@ -1,4 +1,5 @@
 import contextMenus from 'cytoscape-context-menus'
+import 'bootstrap/js/dist/dropdown'
 import $ from 'jquery'
 
 export default function menus(cy, cytoscape, idgen) {
@@ -437,5 +438,7 @@ export default function menus(cy, cytoscape, idgen) {
                 },
             }
         ],
+        menuItemClasses: [ "dropdown-item" ],
+        contextMenuClasses: [ 'dropdown-menu' ]
     })
 }
