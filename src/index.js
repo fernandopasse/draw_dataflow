@@ -34,38 +34,45 @@ entradaNode.onchange = e => {
     reader.onload = (e) => {
         let nodes = JSON.parse(e.target.result);
         let map = []
+        let elements = []
+       
         nodes.forEach(e => {
             if(e.group == 'nodes'){
                 if(map[e.data.id] === undefined){
                     map[e.data.id] = `${idgen.next}`
                     e.data.id =  map[e.data.id]
-                    cy.add(e);
-                }else{
-                    throw "Não pode continuar o processamento do arquivo!"
+                    elements.push(e)
+                } else {
+                    throw new Error("Não pode continuar o processamento do arquivo!")
                 }
             }
         });
 
+        
         nodes.forEach(e => {
             if(e.group == 'edges'){
-                if(map[e.data.id] !== undefined && map[e.data.source] === undefined && map[e.data.target] === undefined){
-                    throw "Não pode continuar o processamento do arquivo!"
+                console.log(e,map[e.data.id])
+                if(map[e.data.id] !== undefined || map[e.data.source] === undefined || map[e.data.target] === undefined){
+                    throw new Error("Não pode continuar o processamento do arquivo!")
                 }else{
-                    e.data.id = `${idgen.next}`
+                    map[e.data.id] = `${idgen.next}`
+                    e.data.id = map[e.data.id]
                     e.data.source = map[e.data.source]
                     e.data.target = map[e.data.target]
-                    cy.add(e)
-                }
+                    elements.push(e)
+                } 
             }
-        })
+        }); 
 
+        console.log(' ')
+        cy.add(elements)
         cy.layout({
-            //allnodes.union(newNodes).layout({
-                name: 'cola',
-                animate: true,
-                fit: false,
-                //boundingBox: bbox
-            }).run()
+        //allnodes.union(newNodes).layout({
+            name: 'cola',
+            animate: true,
+            fit: false,
+            //boundingBox: bbox
+        }).run()
         
     };
     reader.readAsText(files[0]);
@@ -101,6 +108,6 @@ $('#export').click(() => {
 });
 
 $('#import').click(() => {
-    entradaNode.click();
+     
 });
 
