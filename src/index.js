@@ -111,3 +111,14 @@ $('#import').click(() => {
      
 });
 
+$('#adjust-layout').click(() => {
+    cy.resize();
+    cy.layout({
+        //allnodes.union(newNodes).layout({
+            name: 'cola',
+            animate: true,
+            fit: false,
+            //boundingBox: bbox
+    }).run()
+});
+

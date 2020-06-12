@@ -29,6 +29,9 @@
                 <a class="dropdown-item" id="export" href="#">Exportar</a>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="adjust-layout" href="#">Ajustar tela</a>
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
@@ -45,17 +48,25 @@
         </form> -->
       </div>
     </nav>
-
     <main role="main" class="container">
-      <div id="cy"></div>
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+        <div class="row justify-content-center">
+          <div class="alert alert-warning alert-bottom" role="alert">
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div id="cy" class="col-12"></div>
+        </div>
     </main>
-
-    
+    <footer class="footer">
+      <div class="container">
+        <div class="row justify-content-center">
+          <span class="text-muted">Draw DataFlow. 2020</span>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
