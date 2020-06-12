@@ -10,8 +10,8 @@ export default function menus(cy, cytoscape, idgen) {
         //console.log(opnode.data(),opnode.openNeighborhood('edge').map(ele => ele.data()))
         let currentEdges = opnode.incomers('edge') 
         let nodesarray = currentEdges.sources()
-        let nodetype = opnode.data('type')
-        let nodeclass = ( nodetype === '+' ? 'add' : 'mult')
+        let type = opnode.data('type')
+        let nodeclass = ( type === '+' ? 'add' : 'mult')
        
         let allnodes = nodesarray.add(opnode)
         let bbox = allnodes.boundingBox()
@@ -32,7 +32,7 @@ export default function menus(cy, cytoscape, idgen) {
                 let nid = `${idgen.next}`
                 newNode = cy.add({
                     group: 'nodes',
-                    data: { id: nid, type: nodetype },
+                    data: { id: nid, type: type },
                     //position : position,
                     classes: [nodeclass],
                 })//.toArray()[0]
@@ -101,6 +101,77 @@ export default function menus(cy, cytoscape, idgen) {
         }
     }
 
+    let nodeAddMenus = () => {
+        let nodeMenuBase = (node) => {
+            if(typeof node === 'string')
+                node = {type: node}
+
+            const {
+                type,
+                menuopt,
+                nodeopt
+            } = node
+
+            let data = { type : type }
+            let classes = [type]
+            
+
+            if(nodeopt !== undefined) {
+                if(nodeopt['data'] !== undefined) {
+                    data = {...data,...nodeopt.data}
+                    delete options.data
+                }
+
+                if(nodeopt['classes'] !== undefined) {
+                    classes = [...classes,...nodeopt.classes]
+                    delete options.classes
+                }
+            }
+
+            
+            data.id = idgen.next  
+
+            return { 
+                id: `${type}-node`,
+                content: `Adicionar nodo ${type.toUpperCase()}`,
+                tooltipText: `Adicione um NODO com a função de ${type}`,
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    let {x,y} = event.position || event.cyPosition
+                    cy.add({
+                        group: 'nodes',
+                        data: data,
+                        position: {
+                            x,
+                            y
+                        },
+                        classes: classes
+                    })
+                },
+                ...(menuopt || {})
+            }
+        }
+        
+        let node_types = [
+            'input',
+            'output',
+            'add',
+            { 
+                type: "addi", 
+                menuopt: {
+                    id: 'soma-node-inteiro',
+                    content: 'Adicionar nodo SOMA com inteiro',
+                    tooltipText: 'Adicione um NODO com a função de soma com inteiro',
+                        
+                }
+            }
+            ,'and','min','max','not','or','xor','sub','mult']
+        
+        return node_types.map((type) => {
+            console.log(nodeMenuBase(type))
+            return nodeMenuBase(type)
+        })
+    }
     cy.contextMenus({
         menuItems: [
             {
@@ -125,282 +196,7 @@ export default function menus(cy, cytoscape, idgen) {
                 },
                 disabled: false,
             },
-            {
-                id: 'input-node',
-                content: 'Adicionar nodo INPUT',
-                tooltipText: 'Adicione um NODO com a função de input',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'input',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'output-node',
-                content: 'Adicionar nodo OUTPUT',
-                tooltipText: 'Adicione um NODO com a função de output',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'output',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'soma-node',
-                content: 'Adicionar nodo SOMA',
-                tooltipText: 'Adicione um NODO com a função de soma',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'add',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'and-node',
-                content: 'Adicionar nodo AND',
-                tooltipText: 'Adicione um NODO com a função de and',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'and',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'min-node',
-                content: 'Adicionar nodo MIN',
-                tooltipText: 'Adicione um NODO com a função de min',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'min',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'max-node',
-                content: 'Adicionar nodo MAX',
-                tooltipText: 'Adicione um NODO com a função de max',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'max',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'not-node',
-                content: 'Adicionar nodo NOT',
-                tooltipText: 'Adicione um NODO com a função de not',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'not',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'soma-node',
-                content: 'Adicionar nodo OR',
-                tooltipText: 'Adicione um NODO com a função de or',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'or',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'xor-node',
-                content: 'Adicionar nodo XOR',
-                tooltipText: 'Adicione um NODO com a função de xor',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'xor',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'soma-node-inteiro',
-                content: 'Adicionar nodo SOMA com inteiro',
-                tooltipText: 'Adicione um NODO com a função de soma',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'addi',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'subtracao-node',
-                content: 'Adicionar nodo SUBTRAÇÃO',
-                tooltipText: 'Adicione um NODO com a função de subtração',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        //id: Math.round(Math.random() * 100),
-                        type: 'sub',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                },
-            },
-            {
-                id: 'multiplicacao-node',
-                content: 'Adicionar nodo MULTIPLICAÇãO',
-                tooltipText: 'Adicione um NODO com a função de multiplicar',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    var data = {
-                        //group: 'nodes',
-                        type: 'mult',
-                    }
-                    var pos = event.position || event.cyPosition
-                    cy.add({
-                        group: 'nodes',
-                        data: data,
-                        position: {
-                            x: pos.x,
-                            y: pos.y,
-                        },
-                        classes: [`${data.type}`],
-                    })
-                    //cy.$('nodes').forEach((node) => console.log(node.data()))
-                },
-            },
+            ...nodeAddMenus(),
             {
                 id: 'remover-selecionado',
                 content: 'Remover selecionados',
