@@ -2166,6 +2166,11 @@ cytoscape-avsdf@^1.0.0:
   dependencies:
     avsdf-base "^1.0.0"
 
+cytoscape-clipboard@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/cytoscape-clipboard/-/cytoscape-clipboard-2.2.1.tgz#be4fdb4049fe91975a4855f71e875e1faa463b85"
+  integrity sha512-9TUSA138FZFBqEKmwDwpx4BRIScJkZRZUfxaiQIzek01rOYObOhH2NOIFbvDiitGtBUoW2bQjAizQW+vDDm9Qw==
+
 cytoscape-cola@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/cytoscape-cola/-/cytoscape-cola-2.3.1.tgz#e281737b6a973cec53e2423129d14cf189490818"
