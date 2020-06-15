@@ -1,6 +1,6 @@
 import 'bootstrap/js/dist/dropdown';
 import treeReduceModule from './treeReduceModule';
-//import idgen from '../utils/idGenerator';
+// import idgen from '../utils/idGenerator';
 
 export default function menus(cy) {
   const selectAllOfTheSameType = (ele) => {

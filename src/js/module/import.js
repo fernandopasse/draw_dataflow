@@ -1,6 +1,6 @@
 import adjustLayoutModule from './adjustLayout';
 
-export default function importModule(cy, idgen) {
+export default function importModule(cy) {
   const input = document.createElement('input');
   input.type = 'file';
   input.onchange = (uploadedFile) => {
@@ -17,7 +17,7 @@ export default function importModule(cy, idgen) {
 
         if (elementItem.group === 'nodes') {
           if (map[elementItem.data.id] === undefined) {
-            map[elementItem.data.id] = `${idgen.next}`;
+            map[elementItem.data.id] = `${cy.idgen.next}`;
             elementItem.data.id = map[elementItem.data.id];
             elements.push(element);
           } else {
@@ -37,7 +37,7 @@ export default function importModule(cy, idgen) {
           ) {
             throw new Error('Não pode continuar o processamento do arquivo!');
           } else {
-            map[elementItem.data.id] = `${idgen.next}`;
+            map[elementItem.data.id] = `${cy.idgen.next}`;
             elementItem.data.id = map[elementItem.data.id];
             elementItem.data.source = map[elementItem.data.source];
             elementItem.data.target = map[elementItem.data.target];

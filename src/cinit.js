@@ -2,13 +2,16 @@ import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
 import contextMenus from 'cytoscape-context-menus';
 import clipboard from 'cytoscape-clipboard';
+import undoRedo from 'cytoscape-undo-redo';
 import cola from 'cytoscape-cola';
+
 import $ from 'jquery';
 import idgen from './js/utils/idGenerator';
 
 cytoscape.use(contextMenus, $);
 cytoscape.use(clipboard, $);
 cytoscape.use(edgehandles);
+undoRedo(cytoscape);
 cytoscape.use(cola);
 
 // for (let i = 0; i < 10; i += 1) {

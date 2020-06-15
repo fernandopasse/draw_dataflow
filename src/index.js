@@ -8,6 +8,7 @@ import adjustLayoutModule from './js/module/adjustLayout';
 // import ElCounter from './js/utils/idGenerator';
 import importModule from './js/module/import';
 import contextMenusModule from './js/module/contextMenus';
+import copyModule from './js/module/copy';
 
 contextMenusModule(cy);
 
@@ -37,9 +38,11 @@ $('#export').click(() => {
 });
 
 $('#import').click(() => {
-  importModule(cy, idgen);
+  importModule(cy);
 });
 
 $('#adjust-layout').click(() => {
   adjustLayoutModule(cy);
 });
+
+copyModule(cy);
