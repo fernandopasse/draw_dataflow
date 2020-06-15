@@ -3,7 +3,7 @@ import adjustLayoutModule from './adjustLayout';
 export default function treeReduceModule(opnode, cy) {
   // console.log(opnode.data(),opnode.openNeighborhood('edge').map(ele => ele.data()))
   const currentEdges = opnode.incomers('edge');
-  const nodesarray = currentEdges.sources();
+  const nodesarray = currentEdges.map(edge => edge.source());
   const type = opnode.data('type');
   const nodeclass = type === 'add' ? 'add' : 'mult';
 
