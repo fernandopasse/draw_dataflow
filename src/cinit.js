@@ -6,7 +6,8 @@ import undoRedo from 'cytoscape-undo-redo';
 import cola from 'cytoscape-cola';
 
 import $ from 'jquery';
-import idgen from './js/utils/idGenerator';
+import nodeTypes from './js/module/nodeTypes'
+// import idgen from './js/utils/idGenerator';
 
 cytoscape.use(contextMenus, $);
 cytoscape.use(clipboard, $);
@@ -208,13 +209,13 @@ const initconfig = {
       },
       {
         group: 'nodes',
-        data: { id: 'n6', type: 'add' },
-        classes: ['add'],
+        data: { id: 'n6', type: 'or' },
+        classes: ['or', 'reducible'],
       },
       {
         group: 'nodes',
         data: { id: 'n7', type: 'add' },
-        classes: ['add'],
+        classes: ['add', 'reducible'],
       },
       {
         group: 'nodes',
@@ -252,14 +253,15 @@ const initconfig = {
 };
 
 const cy = cytoscape(initconfig);
-cy.idgen = idgen;
-// cy.on('add', (evt) => {
-//   console.log(evt.target.data())
-//   let el = evt.target.data('id', idgen.next);
-//   cy.remove(el)
-//   console.log(evt.target.data())
-// });
+//cy.idgen = idgen;
 
+cy.filter((node) => {
+  return node.hasClass('reducible') && node.indegree() > 2;
+}).addClass('reduce');
+
+cy.on('add', 'edge', (evt) => {
+  console.log(evt.target.data());
+});
 export default cy;
 // export default (function () {
 //   //let idgen = idgen;

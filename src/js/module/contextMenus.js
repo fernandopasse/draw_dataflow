@@ -1,4 +1,5 @@
 import 'bootstrap/js/dist/dropdown';
+import { uuid } from 'uuidv4';
 import treeReduceModule from './treeReduceModule';
 // import idgen from '../utils/idGenerator';
 
@@ -6,7 +7,7 @@ export default function menus(cy) {
   const selectAllOfTheSameType = (ele) => {
     cy.elements().unselect();
     if (ele.isNode()) {
-      console.log(ele.data());
+      // console.log(ele.data());
       cy.nodes(`[type = "${ele.data('type')}"]`).select(); // .addClass('selected')
     } else if (ele.isEdge()) {
       cy.edges().select();
@@ -29,12 +30,12 @@ export default function menus(cy) {
       if (nodeopt !== undefined) {
         if (nodeopt.data !== undefined) {
           data = { ...data, ...nodeopt.data };
-          delete options.data;
+          delete nodeopt.data;
         }
 
         if (nodeopt.classes !== undefined) {
           classes = [...classes, ...nodeopt.classes];
-          delete options.classes;
+          delete nodeopt.classes;
         }
       }
 
@@ -48,7 +49,7 @@ export default function menus(cy) {
         coreAsWell: true,
         onClickFunction(event) {
           const { x, y } = event.position || event.cyPosition;
-          data.id = `${cy.idgen.next}`;
+          data.id = uuid();
           cy.add({
             group: 'nodes',
             data,
@@ -66,7 +67,13 @@ export default function menus(cy) {
     const nodeTypes = [
       'input',
       'output',
-      'add',
+      ...['add', 'and', 'min', 'max', 'not', 'or', 'xor', 'mult']
+        .map((op) => ({
+          type: op,
+          nodeopt: {
+            classes: ['reducible'],
+          },
+        })),
       {
         type: 'addi',
         menuopt: {
@@ -76,14 +83,7 @@ export default function menus(cy) {
                         'Adicione um NODO com a função de soma com inteiro',
         },
       },
-      'and',
-      'min',
-      'max',
-      'not',
-      'or',
-      'xor',
       'sub',
-      'mult',
     ];
 
     return nodeTypes.map((type) => {
@@ -101,6 +101,12 @@ export default function menus(cy) {
         selector: 'node, edge',
         onClickFunction(event) {
           const target = event.target || event.cyTarget;
+          if (target.isEdge()) {
+            const nodeTarget = target.target();
+            if (nodeTarget.hasClass('reduce') && nodeTarget.indegree() === 3) {
+              nodeTarget.removeClass('reduce');
+            }
+          }
           target.remove();
         },
         hasTrailingDivider: true,
@@ -123,7 +129,13 @@ export default function menus(cy) {
         tooltipText: 'Remover NODOs ou ARESTAS selecionadas',
         coreAsWell: true,
         onClickFunction() {
+          const reduceNodes = cy.$(':selected').filter('edge').targets().filter('.reduce');
           cy.$(':selected').remove();
+          reduceNodes.forEach((node) => {
+            if (node.indegree() <= 2) {
+              node.removeClass('reduce');
+            }
+          });
         },
       },
       {

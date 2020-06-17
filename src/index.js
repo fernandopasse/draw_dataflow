@@ -13,25 +13,18 @@ import copyModule from './js/module/copy';
 contextMenusModule(cy);
 
 cy.edgehandles({
-  noEdgeEventsInDraw: true,
+  noEdgeEventsInDraw: false,
+  complete(sourceNode, targetNode, addedEles) {
+    if (targetNode.hasClass('reducible') && targetNode.indegree() > 2) targetNode.addClass('reduce');
+    console.log(targetNode.classes());
+  },
 });
 
-cy.on('ehcomplete', (event, sourceNode, targetNode) => {
-  if (
-    targetNode.data('type') === 'add'
-        || targetNode.data('type') === 'mult'
-  ) {
-    if (targetNode.indegree() > 2) {
-      targetNode.addClass('reduce');
-    }
-  }
-  console.log(targetNode.classes());
-});
+// cy.on('ehcomplete', (event, sourceNode, targetNode) => {
 
-cy.filter(
-  (node) => (node.data('type') === 'add' || node.data('type') === 'mult')
-        && node.indegree() > 2,
-).addClass('reduce');
+// });
+
+
 
 $('#export').click(() => {
   exportModule(cy);
