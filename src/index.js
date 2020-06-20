@@ -10,7 +10,7 @@ import importModule from './js/module/import';
 import contextMenusModule from './js/module/contextMenus';
 import copyModule from './js/module/copy';
 
-contextMenusModule(cy);
+const menus = contextMenusModule(cy);
 
 cy.edgehandles({
   noEdgeEventsInDraw: false,

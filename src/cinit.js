@@ -279,6 +279,7 @@ cy.on('mouseout', 'node,edge', (evt) => {
 cy.on('add', 'edge', (evt) => {
   console.log(evt.target.data());
 });
+
 export default cy;
 // export default (function () {
 //   //let idgen = idgen;

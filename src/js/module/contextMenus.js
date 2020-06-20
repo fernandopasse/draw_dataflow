@@ -124,23 +124,50 @@ export default function menus(cy) {
         },
       },
       {
-        id: 'selecionar-nodos',
-        content: 'Seleciona todos os NODOS do mesmo tipo',
-        tooltipText: 'Selecionar todos os NODOS',
+        id: 'remover-nodo',
+        content: 'Remover nodo',
+        tooltipText: 'Remover nodo',
         selector: 'node',
         onClickFunction(event) {
-          selectAllOfTheSameType(event.target || event.cyTarget);
+          const target = event.target || event.cyTarget;
+          const reduceNBTargets = target.outgoers().targets('reduce');
+          target.remove();
+          reduceNBTargets.forEach((node) => {
+            if (node.indegree() < 3) node.removeClass('reduce');
+          });
         },
-      },
-      {
-        id: 'selecionar-aresta',
-        content: 'Seleciona todas as ARESTAS',
-        tooltipText: 'Seleciona todas as ARESTAS',
+      }, {
+        id: 'remover-aresta',
+        content: 'Remover aresta',
+        tooltipText: 'Remover aresta',
         selector: 'edge',
         onClickFunction(event) {
-          selectAllOfTheSameType(event.target || event.cyTarget);
+          const target = event.target || event.cyTarget;
+          const reduceNodeTargets = target.targets('reduce');
+          target.remove();
+          reduceNodeTargets.forEach((node) => {
+            if (node.indegree() < 3) node.removeClass('reduce');
+          });
         },
       },
+      // {
+      //   id: 'selecionar-nodos',
+      //   content: 'Seleciona todos os NODOS do mesmo tipo',
+      //   tooltipText: 'Selecionar todos os NODOS',
+      //   selector: 'node',
+      //   onClickFunction(event) {
+      //     selectAllOfTheSameType(event.target || event.cyTarget);
+      //   },
+      // },
+      // {
+      //   id: 'selecionar-aresta',
+      //   content: 'Seleciona todas as ARESTAS',
+      //   tooltipText: 'Seleciona todas as ARESTAS',
+      //   selector: 'edge',
+      //   onClickFunction(event) {
+      //     selectAllOfTheSameType(event.target || event.cyTarget);
+      //   },
+      // },
       {
         id: 'reduzir',
         content: 'Reduzir operação',
@@ -155,30 +182,42 @@ export default function menus(cy) {
     contextMenuClasses: ['dropdown-menu'],
   });
 
-  menus.appendMenuItem({
-    id: 'remover',
-    content: 'Remover',
-    tooltipText: 'Remover',
-    selector: 'node, edge',
-    coreAsWell: true,
-    onClickFunction(event) {
-      // const target = event.target || event.cyTarget;
-      const targets = cy.$(':selected');
-      if (targets.length > 0) {
-        console.log(targets.length);
-      } else {
-        const target = event.target;
-        if(target.isNode() || target.isEdge())
-          console.log(target);
-      }
-      // if (target.isEdge()) {
-      //   const nodeTarget = target.target();
-      //   if (nodeTarget.hasClass('reduce') && nodeTarget.indegree() === 3) {
-      //     nodeTarget.removeClass('reduce');
-      //   }
-      // }
-      // targets.remove();
-    },
-    hasTrailingDivider: true,
+  cy.on('cxttap', () => {
+    console.log(cy.$(':selected').length);
+    if (cy.$(':selected').length > 0) {
+      menus.showMenuItem('remover-selecionado');
+    } else {
+      menus.hideMenuItem('remover-selecionado');
+    }
   });
+
+  // menus.appendMenuItem({
+  //   id: 'remover',
+  //   content: 'Remover',
+  //   tooltipText: 'Remover',
+  //   selector: 'node',
+  //   coreAsWell: true,
+  //   onClickFunction(event) {
+  //     const target = event.target || event.cyTarget;
+  //     // const target = event.target || event.cyTarget;
+  //     // const targets = cy.$(':selected');
+  //     // if (targets.length > 0) {
+  //     //   console.log(targets.length);
+  //     // } else {
+  //     //   const { target } = event;
+  //     //   if (target !== cy) {
+  //     //     if (target.isEdge()) {
+  //     //       const nodeTarget = target.target();
+  //     //       if (nodeTarget.hasClass('reduce') && nodeTarget.indegree() === 3) {
+  //     //         nodeTarget.removeClass('reduce');
+  //     //       }
+  //     //     }
+  //     //     targets.remove();
+  //     //   }
+  //     // }
+  //     //
+  //     //
+  //   },
+  //   hasTrailingDivider: true,
+  // });
 }
