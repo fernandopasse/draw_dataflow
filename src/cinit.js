@@ -6,7 +6,7 @@ import undoRedo from 'cytoscape-undo-redo';
 import cola from 'cytoscape-cola';
 
 import $ from 'jquery';
-import nodeTypes from './js/module/nodeTypes'
+import nodeTypes from './js/module/nodeTypes';
 // import idgen from './js/utils/idGenerator';
 
 cytoscape.use(contextMenus, $);
@@ -140,6 +140,15 @@ const initconfig = {
       },
     },
     {
+      selector: '.selected',
+      css: {
+        'background-color': '#90caf9',
+        'border-color': '#002171',
+        'line-color': '#002171',
+        'target-arrow-color': '#002171',
+      },
+    },
+    {
       selector: '.eh-handle',
       css: {
         'background-color': 'red',
@@ -253,11 +262,19 @@ const initconfig = {
 };
 
 const cy = cytoscape(initconfig);
-//cy.idgen = idgen;
+// cy.idgen = idgen;
 
-cy.filter((node) => {
-  return node.hasClass('reducible') && node.indegree() > 2;
-}).addClass('reduce');
+cy.filter((node) => node.hasClass('reducible') && node.indegree() > 2).addClass('reduce');
+
+cy.on('mouseover', 'node,edge', (evt) => {
+  const element = evt.target;
+  element.toggleClass('selected');
+});
+
+cy.on('mouseout', 'node,edge', (evt) => {
+  const element = evt.target;
+  element.toggleClass('selected');
+});
 
 cy.on('add', 'edge', (evt) => {
   console.log(evt.target.data());

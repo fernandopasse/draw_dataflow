@@ -24,8 +24,6 @@ cy.edgehandles({
 
 // });
 
-
-
 $('#export').click(() => {
   exportModule(cy);
 });

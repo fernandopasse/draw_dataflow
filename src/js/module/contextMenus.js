@@ -67,20 +67,18 @@ export default function menus(cy) {
     const nodeTypes = [
       'input',
       'output',
-      ...['add', 'and', 'min', 'max', 'not', 'or', 'xor', 'mult']
-        .map((op) => ({
-          type: op,
-          nodeopt: {
-            classes: ['reducible'],
-          },
-        })),
+      ...['add', 'and', 'min', 'max', 'not', 'or', 'xor', 'mult'].map((op) => ({
+        type: op,
+        nodeopt: {
+          classes: ['reducible'],
+        },
+      })),
       {
         type: 'addi',
         menuopt: {
           id: 'soma-node-inteiro',
           content: 'Adicionar nodo SOMA com inteiro',
-          tooltipText:
-                        'Adicione um NODO com a função de soma com inteiro',
+          tooltipText: 'Adicione um NODO com a função de soma com inteiro',
         },
       },
       'sub',
@@ -92,25 +90,8 @@ export default function menus(cy) {
     });
   };
 
-  cy.contextMenus({
+  const menus = cy.contextMenus({
     menuItems: [
-      {
-        id: 'remover',
-        content: 'Remover',
-        tooltipText: 'Remove uma ARESTA ou NODO',
-        selector: 'node, edge',
-        onClickFunction(event) {
-          const target = event.target || event.cyTarget;
-          if (target.isEdge()) {
-            const nodeTarget = target.target();
-            if (nodeTarget.hasClass('reduce') && nodeTarget.indegree() === 3) {
-              nodeTarget.removeClass('reduce');
-            }
-          }
-          target.remove();
-        },
-        hasTrailingDivider: true,
-      },
       {
         id: 'hide',
         content: 'Ocultar Nodo',
@@ -129,7 +110,11 @@ export default function menus(cy) {
         tooltipText: 'Remover NODOs ou ARESTAS selecionadas',
         coreAsWell: true,
         onClickFunction() {
-          const reduceNodes = cy.$(':selected').filter('edge').targets().filter('.reduce');
+          const reduceNodes = cy
+            .$(':selected')
+            .filter('edge')
+            .targets()
+            .filter('.reduce');
           cy.$(':selected').remove();
           reduceNodes.forEach((node) => {
             if (node.indegree() <= 2) {
@@ -168,5 +153,32 @@ export default function menus(cy) {
     ],
     menuItemClasses: ['dropdown-item'],
     contextMenuClasses: ['dropdown-menu'],
+  });
+
+  menus.appendMenuItem({
+    id: 'remover',
+    content: 'Remover',
+    tooltipText: 'Remover',
+    selector: 'node, edge',
+    coreAsWell: true,
+    onClickFunction(event) {
+      // const target = event.target || event.cyTarget;
+      const targets = cy.$(':selected');
+      if (targets.length > 0) {
+        console.log(targets.length);
+      } else {
+        const target = event.target;
+        if(target.isNode() || target.isEdge())
+          console.log(target);
+      }
+      // if (target.isEdge()) {
+      //   const nodeTarget = target.target();
+      //   if (nodeTarget.hasClass('reduce') && nodeTarget.indegree() === 3) {
+      //     nodeTarget.removeClass('reduce');
+      //   }
+      // }
+      // targets.remove();
+    },
+    hasTrailingDivider: true,
   });
 }
