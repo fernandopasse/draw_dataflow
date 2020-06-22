@@ -1,4 +1,5 @@
 import adjustLayoutModule from './adjustLayout';
+import { uuid } from 'uuidv4';
 
 export default function importModule(cy) {
   const input = document.createElement('input');
@@ -17,7 +18,8 @@ export default function importModule(cy) {
 
         if (elementItem.group === 'nodes') {
           if (map[elementItem.data.id] === undefined) {
-            map[elementItem.data.id] = `${cy.idgen.next}`;
+            map[elementItem.data.id] = uuid();
+            elementItem.classes = [elementItem.data.type]
             elementItem.data.id = map[elementItem.data.id];
             elements.push(element);
           } else {
@@ -37,7 +39,7 @@ export default function importModule(cy) {
           ) {
             throw new Error('Não pode continuar o processamento do arquivo!');
           } else {
-            map[elementItem.data.id] = `${cy.idgen.next}`;
+            map[elementItem.data.id] = uuid();
             elementItem.data.id = map[elementItem.data.id];
             elementItem.data.source = map[elementItem.data.source];
             elementItem.data.target = map[elementItem.data.target];
