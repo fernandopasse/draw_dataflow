@@ -1,0 +1,163 @@
+[
+  {
+    "name": "input",
+    "props": {
+      "reducible": false
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/input.png"
+    }
+  },
+  {
+    "name": "output",
+    "props": {
+      "reducible": false 
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/output.png"
+    }    
+  },
+  { 
+    "name": "abs", 
+    "props": {
+      "optype": "unary"
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/abs.png"
+    }
+  },
+  { 
+    "name": "add", 
+    "props": {
+      "optype": "binary",
+      "reducible": true,
+      "comutative": true
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/add.png"
+    }
+  },
+  {
+    "name":"addi",
+    "props": {
+      "optype": "IOperator",
+      "reducible": true,
+      "numOperands": 1
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/add.png"
+    }
+  },
+  {
+    "name": "and",
+    "props": {
+      "optype": "binary",
+      "reducible": true,
+      "comutative": true
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/and.png"
+    }
+  },
+  {
+    "name":"slt",
+    "props": {
+      "optype": "binary",
+      "comutative": true,
+      "numOperands": 2
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/slt.png"
+    }
+  },
+  {
+    "name": "min",
+    "props": {
+      "optype": "binary",
+      "reducible": true,
+      "comutative": true
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/min.png"
+    }
+  },
+  {
+    "name": "max",
+    "props": {
+      "optype": "binary",
+      "reducible": true,
+      "comutative": true
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/max.png"
+    }
+  },
+  {
+    "name": "or",
+    "props": {
+      "optype": "binary",
+      "reducible": true,
+      "comutative": true
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/or.png"
+    }
+  },
+  {
+    "name": "xor",
+    "props": {
+      "optype": "binary",
+      "reducible": true,
+      "comutative": true
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/xor.png"
+    }
+  },
+  {
+    "name": "mult",
+    "props": {
+      "optype": "binary",
+      "reducible": true,
+      "comutative": true
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/mult.png"
+    }
+  },
+  {
+    "name": "sub",
+    "props": {
+      "optype": "binary",
+      "reducible": false,
+      "comutative": false,
+      "numOperands": 2
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/sub.png"
+    }
+  },
+  {
+    "name": "not",
+    "props": {
+      "optype": "unary"
+    },
+    "style": {
+      "background-color": "#fff",
+      "background-image": "./assets/img/not.png"
+    }
+  }
+]

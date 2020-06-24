@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Fernando Ferreira Passe">
+    <title>Draw DataFlow</title>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Draw DataFlow</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <!-- <li class="nav-item active"></li> -->
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Arquivo
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item disabled" href="#">Use arquivos em JSON</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" id="import" href="#">Importar</a>
+                <a class="dropdown-item" id="export" href="#">Exportar</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="adjust-layout" href="#">Ajustar tela</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Disabled</a>
+          </li> -->
+        </ul>
+        <!-- <form class="form-inline mt-2 mt-md-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+      </div>
+    </nav>
+    <main role="main" class="container relative">
+        <div class="row justify-content-center">
+          <div id="cy" class="col-12"></div>
+        </div>
+        <div class="container-sm position-relative">
+          <div class="row justify-content-center">
+            <div class="alert alert-warning" role="alert">
+              <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="row justify-content-center">
+          <span class="text-muted">Draw DataFlow. 2020</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

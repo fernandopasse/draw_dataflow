@@ -1,0 +1,56 @@
+[
+  {
+    "selector": "node",
+    "css": {
+      "background-fit": "contain",
+      "border-color": "#000",
+      "border-width": 1,
+      "border-opacity": 0.5,
+      "width": 50,
+      "height": 50
+    }
+  },
+  {
+    "selector": ".selected",
+    "css": {
+      "background-color": "#90caf9",
+      "border-color": "#002171",
+      "line-color": "#002171",
+      "target-arrow-color": "#002171"
+    }
+  },
+  {
+    "selector": ".eh-handle",
+    "css": {
+      "background-color": "red",
+      "width": 15,
+      "height": 15,
+      "shape": "ellipse",
+      "overlay-opacity": 0,
+      "border-width": 5,
+      "border-opacity": 0,
+      "border-color": "#ab000d"
+    }
+  },
+  {
+    "selector": "edge",
+    "css": {
+      "curve-style": "bezier",
+      "target-arrow-shape": "triangle"
+    }
+  },
+  {
+    "selector": ":selected",
+    "css": {
+      "background-color": "#90caf9",
+      "border-color": "#002171"
+    }
+  },
+  {
+    "selector": ".reduce",
+    "css": {
+      "border-color": "#1b5e20",
+      "border-width": 3
+    }
+  }
+]
