@@ -30,6 +30,18 @@
     }
   },
   { 
+    "name": "reg", 
+    "props": {
+      "optype": "unary"
+    },
+    "style": {
+      "background-color": "#fff",
+      "label": "reg",
+      "text-halign": "center",
+      "text-valign": "center"
+    }
+  },
+  { 
     "name": "add", 
     "props": {
       "optype": "binary",
@@ -50,7 +62,23 @@
     },
     "style": {
       "background-color": "#fff",
-      "background-image": "./assets/img/add.png"
+      "label": "addi",
+      "text-halign": "center",
+      "text-valign": "center"
+    }
+  },
+  {
+    "name":"multi",
+    "props": {
+      "optype": "IOperator",
+      "reducible": true,
+      "numOperands": 1
+    },
+    "style": {
+      "background-color": "#fff",
+      "label": "multi",
+      "text-halign": "center",
+      "text-valign": "center"
     }
   },
   {

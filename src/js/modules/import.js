@@ -20,6 +20,7 @@ export default function importModule(cy) {
           if (map[elementItem.data.id] === undefined) {
             map[elementItem.data.id] = v4();
             elementItem.data.id = map[elementItem.data.id];
+            elementItem.classes = elementItem.data.type
             elements.push(element);
           } else {
             throw new Error('Não pode continuar o processamento do arquivo!');
