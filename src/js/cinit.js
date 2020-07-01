@@ -32,10 +32,7 @@ const initconfig = {
     maxSimulationTime: 1000,
   },
 
-  style: [
-    ...nodeTypes.styles,
-    ...styles,
-  ],
+  style: [...nodeTypes.styles, ...styles],
 
   elements: {
     nodes: [
@@ -117,20 +114,22 @@ const initconfig = {
 const cy = cytoscape(initconfig);
 // cy.idgen = idgen;
 
-cy.filter((node) => node.hasClass('reducible') && node.indegree() > 2).addClass('reduce');
+cy.filter(node => node.hasClass('reducible') && node.indegree() > 2).addClass(
+  'reduce',
+);
 
-cy.on('mouseover', 'node,edge', (evt) => {
+cy.on('mouseover', 'node,edge', evt => {
   const element = evt.target;
   element.toggleClass('selected');
 });
 
-cy.on('mouseout', 'node,edge', (evt) => {
+cy.on('mouseout', 'node,edge', evt => {
   const element = evt.target;
   element.toggleClass('selected');
 });
 
-cy.on('click', 'node', (evt) => {
-  evt.target.incomers().forEach((elem) => {
+cy.on('click', 'node', evt => {
+  evt.target.incomers().forEach(elem => {
     console.log(elem);
     elem.removeClass('eh-preview');
     // console.log(elem.classes());

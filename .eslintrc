@@ -1,12 +1,14 @@
 {
     "parser": "babel-eslint",
-    "extends": "airbnb",
+    "extends": ["airbnb","plugin:prettier/recommended"],
+    "plugins": ["prettier"],
     "env": {
         "browser": true,
         "node": true,
         "jquery": true
     },
     "rules": {
-        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" } ]
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" } ],
+        "prettier/prettier": "error"
     }
 }

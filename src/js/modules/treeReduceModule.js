@@ -4,7 +4,7 @@ import adjustLayoutModule from './adjustLayout';
 export default function treeReduceModule(opnode, cy, nodeTypes) {
   // console.log(opnode.data(),opnode.openNeighborhood('edge').map(ele => ele.data()))
   const currentEdges = opnode.incomers('edge');
-  const nodesarray = currentEdges.map((edge) => edge.source());
+  const nodesarray = currentEdges.map(edge => edge.source());
   const type = opnode.data('type');
   // const baseNodeClasses = nodeTypes.node(type);
 
@@ -19,7 +19,8 @@ export default function treeReduceModule(opnode, cy, nodeTypes) {
   let arrlength = nodesarray.length;
   let newEdges = cy.collection();
   let newNodes = cy.collection();
-  let newNode; let nid;
+  let newNode;
+  let nid;
   //   nodesarray = nodesarray;// .toArray()
   while (arrlength > 2) {
     for (let i = 0; i < parseInt(arrlength / 2, 10); i += 1) {

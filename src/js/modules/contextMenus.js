@@ -50,7 +50,7 @@ export default function contextMenus(cy, nodeTypes) {
       // ...(menuopt || {}),
     };
 
-    return nodeTypes.types.map((type) => menuOption(type));
+    return nodeTypes.types.map(type => menuOption(type));
 
     // console.log(nodeTypes.node(node));
     // if (typeof theNode === 'string') {
@@ -99,7 +99,7 @@ export default function contextMenus(cy, nodeTypes) {
         coreAsWell: true,
         onClickFunction() {
           cy.$(':selected').remove();
-          cy.$('.reduce').forEach((node) => {
+          cy.$('.reduce').forEach(node => {
             if (node.indegree() <= 2) {
               node.removeClass('reduce');
             }
@@ -115,11 +115,12 @@ export default function contextMenus(cy, nodeTypes) {
           const target = event.target || event.cyTarget;
           const reduceNBTargets = target.outgoers().targets('reduce');
           target.remove();
-          reduceNBTargets.forEach((node) => {
+          reduceNBTargets.forEach(node => {
             if (node.indegree() < 3) node.removeClass('reduce');
           });
         },
-      }, {
+      },
+      {
         id: 'remover-aresta',
         content: 'Remover aresta',
         tooltipText: 'Remover aresta',
@@ -128,7 +129,7 @@ export default function contextMenus(cy, nodeTypes) {
           const target = event.target || event.cyTarget;
           const reduceNodeTargets = target.targets('reduce');
           target.remove();
-          reduceNodeTargets.forEach((node) => {
+          reduceNodeTargets.forEach(node => {
             if (node.indegree() < 3) node.removeClass('reduce');
           });
         },

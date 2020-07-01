@@ -59,7 +59,9 @@
       "background-color": "red",
       "line-color": "red",
       "target-arrow-color": "red",
-      "source-arrow-color": "red"
+      "source-arrow-color": "red",
+      "border-color": "red",
+      "border-width": 5
     }
   }
 ]

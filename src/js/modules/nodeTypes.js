@@ -1,5 +1,10 @@
 const baseNodeTypes = require('../../assets/json/nodeTypes.json');
 
+// class NodeTypes {
+//   constructor(json) {
+
+//   }
+// }
 const c = (function () {
   // function getClasses(props) {
   //   const classes = [];
@@ -11,19 +16,18 @@ const c = (function () {
   const types = [];
   const styles = [];
 
-  baseNodeTypes.forEach((node) => {
-    const {
-      reducible,
-      comutative,
-      optype,
-      numOperands,
-    } = node.props;
+  baseNodeTypes.forEach(node => {
+    const { reducible, comutative, optype, numOperands } = node.props;
 
     const classes = [node.name];
     types.push(node.name);
 
-    if (reducible) { classes.push('reducible'); }
-    if (optype === 'binary' && comutative === false) { classes.push('swap'); }
+    if (reducible) {
+      classes.push('reducible');
+    }
+    if (optype === 'binary' && comutative === false) {
+      classes.push('swap');
+    }
 
     nodeTypes[node.name] = {
       group: 'nodes',
@@ -51,7 +55,8 @@ const c = (function () {
       //   name: node.name,
       // }));
     },
-    node(type) { // , indata, outdata) {
+    node(type) {
+      // , indata, outdata) {
       // const baseNode = nodeTypes[type];
       // const data = { ...baseNode.data, ...(indata || {}) };
       // const newNode = {
@@ -69,7 +74,7 @@ const c = (function () {
     //   baseNodeTypes.push(style);
     // },
   };
-}());
+})();
 
 // console.log(c.node('add'));
 // console.log(c.node('sub'));

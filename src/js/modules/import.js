@@ -4,16 +4,16 @@ import adjustLayoutModule from './adjustLayout';
 export default function importModule(cy) {
   const input = document.createElement('input');
   input.type = 'file';
-  input.onchange = (uploadedFile) => {
+  input.onchange = uploadedFile => {
     const { files } = uploadedFile.target;
     if (!files) return;
     const reader = new FileReader();
-    reader.onload = (file) => {
+    reader.onload = file => {
       const nodes = JSON.parse(file.target.result);
       const map = [];
       const elements = [];
 
-      nodes.forEach((element) => {
+      nodes.forEach(element => {
         const elementItem = element;
 
         if (elementItem.group === 'nodes') {
@@ -28,14 +28,15 @@ export default function importModule(cy) {
         }
       });
 
-      nodes.forEach((element) => {
+      nodes.forEach(element => {
         const elementItem = element;
 
         if (elementItem.group === 'edges') {
           console.log(elementItem, map[elementItem.data.id]);
-          if (map[elementItem.data.id] !== undefined
-            || map[elementItem.data.source] === undefined
-            || map[elementItem.data.target] === undefined
+          if (
+            map[elementItem.data.id] !== undefined ||
+            map[elementItem.data.source] === undefined ||
+            map[elementItem.data.target] === undefined
           ) {
             throw new Error('Não pode continuar o processamento do arquivo!');
           } else {

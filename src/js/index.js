@@ -14,6 +14,19 @@ contextMenusModule(cy, nodeTypes);
 
 cy.edgehandles({
   noEdgeEventsInDraw: true,
+  start(sourceNode) {
+    console.log(cy.$('node[numOperands>0]').length);
+    cy.$('node[numOperands>0]')
+      .filter(
+        node =>
+          node.indegree() >= node.data('numOperands') && !node.same(sourceNode),
+      )
+      .addClass('invalid');
+  },
+  stop() {
+    console.log(cy.$('node[numOperands>0]').length);
+    cy.$('node[numOperands>0]').removeClass('invalid');
+  },
   edgeType(sourceNode, targetNode) {
     if (targetNode.indegree() >= targetNode.data('numOperands')) {
       return null;
@@ -22,20 +35,26 @@ cy.edgehandles({
     // returning null/undefined means an edge can't be added between the two nodes
     return {};
   },
+
   complete(sourceNode, targetNode, _) {
-    if (targetNode.hasClass('reducible') && targetNode.indegree() > 2) targetNode.addClass('reduce');
-    console.log(targetNode.incomers());
+    if (targetNode.hasClass('reducible') && targetNode.indegree() > 2)
+      targetNode.addClass('reduce');
   },
-  hoverover(sourceNode, targetNode) {
-    // console.log(targetNode.data());
-    if (targetNode.indegree() >= targetNode.data('numOperands')) {
-      cy.$('.eh-preview.eh-preview-active, .eh-ghost-edge').addClass('invalid');
-      // console.log('MAX');
-    }
-  },
-  hoverout() {
-    cy.$('.eh-preview.eh-preview-active, .eh-ghost-edge, .eh-hover').removeClass('invalid');
-  },
+  // previewon() {
+  //   cy.$('.eh-ghost-edge').ad;
+  // },
+  // previewoff() {
+
+  // },
+  // hoverover(sourceNode, targetNode) {
+  //   console.log('node', cy.$('.eh-ghost-edge'));
+  //   if (targetNode.indegree() >= targetNode.data('numOperands')) {
+  //     // console.log('MAX');
+  //   }
+  // },
+  // hoverout() {
+  //   cy.$('.eh-preview.eh-preview-active, .eh-ghost-edge, .eh-hover').removeClass('invalid');
+  // },
 });
 
 // cy.on('ehcomplete', (event, sourceNode, targetNode) => {
