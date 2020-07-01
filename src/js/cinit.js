@@ -129,6 +129,14 @@ cy.on('mouseout', 'node,edge', (evt) => {
   element.toggleClass('selected');
 });
 
+cy.on('click', 'node', (evt) => {
+  evt.target.incomers().forEach((elem) => {
+    console.log(elem);
+    elem.removeClass('eh-preview');
+    // console.log(elem.classes());
+  });
+});
+
 // cy.on('add', 'edge', (evt) => {
 //   console.log(evt.target.data());
 // });

@@ -13,7 +13,7 @@ import copyModule from './modules/copy';
 contextMenusModule(cy, nodeTypes);
 
 cy.edgehandles({
-  noEdgeEventsInDraw: false,
+  noEdgeEventsInDraw: true,
   edgeType(sourceNode, targetNode) {
     if (targetNode.indegree() >= targetNode.data('numOperands')) {
       return null;
