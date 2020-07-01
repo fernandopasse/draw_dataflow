@@ -4,6 +4,7 @@ import contextMenus from 'cytoscape-context-menus';
 import clipboard from 'cytoscape-clipboard';
 import undoRedo from 'cytoscape-undo-redo';
 import cola from 'cytoscape-cola';
+import nodeHtmlLabel from 'cytoscape-node-html-label';
 
 import $ from 'jquery';
 import nodeTypes from './modules/nodeTypes';
@@ -16,6 +17,7 @@ cytoscape.use(clipboard, $);
 cytoscape.use(edgehandles);
 undoRedo(cytoscape);
 cytoscape.use(cola);
+nodeHtmlLabel(cytoscape);
 
 // for (let i = 0; i < 10; i += 1) {
 //   console.log(`idgen: ${idgen.next}`);
@@ -44,7 +46,7 @@ const initconfig = {
       },
       {
         group: 'nodes',
-        data: { id: 'n1', type: 'sub' },
+        data: { id: 'n1', type: 'sub', numOperands: 2 },
         classes: ['sub'],
       },
       {
@@ -127,10 +129,11 @@ cy.on('mouseout', 'node,edge', (evt) => {
   element.toggleClass('selected');
 });
 
-cy.on('add', 'edge', (evt) => {
-  console.log(evt.target.data());
-});
+// cy.on('add', 'edge', (evt) => {
+//   console.log(evt.target.data());
+// });
 
+// cy.
 export { cy, nodeTypes };
 // export default (function () {
 //   //let idgen = idgen;

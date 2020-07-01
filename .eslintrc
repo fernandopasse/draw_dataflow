@@ -6,5 +6,7 @@
         "node": true,
         "jquery": true
     },
-    "rules": {}
+    "rules": {
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" } ]
+    }
 }

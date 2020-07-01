@@ -10,13 +10,31 @@ import importModule from './modules/import';
 import contextMenusModule from './modules/contextMenus';
 import copyModule from './modules/copy';
 
-const menus = contextMenusModule(cy, nodeTypes);
+contextMenusModule(cy, nodeTypes);
 
 cy.edgehandles({
   noEdgeEventsInDraw: false,
-  complete(sourceNode, targetNode, addedEles) {
+  edgeType(sourceNode, targetNode) {
+    if (targetNode.indegree() >= targetNode.data('numOperands')) {
+      return null;
+    }
+    // can return 'flat' for flat edges between nodes or 'node' for intermediate node between them
+    // returning null/undefined means an edge can't be added between the two nodes
+    return {};
+  },
+  complete(sourceNode, targetNode, _) {
     if (targetNode.hasClass('reducible') && targetNode.indegree() > 2) targetNode.addClass('reduce');
-    // console.log(targetNode.classes());
+    console.log(targetNode.incomers());
+  },
+  hoverover(sourceNode, targetNode) {
+    // console.log(targetNode.data());
+    if (targetNode.indegree() >= targetNode.data('numOperands')) {
+      cy.$('.eh-preview.eh-preview-active, .eh-ghost-edge').addClass('invalid');
+      // console.log('MAX');
+    }
+  },
+  hoverout() {
+    cy.$('.eh-preview.eh-preview-active, .eh-ghost-edge, .eh-hover').removeClass('invalid');
   },
 });
 

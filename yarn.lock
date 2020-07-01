@@ -2323,6 +2323,11 @@ cytoscape-klay@^3.1.3:
   dependencies:
     klayjs "^0.4.1"
 
+cytoscape-node-html-label@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/cytoscape-node-html-label/-/cytoscape-node-html-label-1.2.0.tgz#584bb5a222a3a566348e8958dcde2961bb6967ac"
+  integrity sha512-89gV88cj2fUgzR0sGV/ZWP+KgVusyE8Xb45BusI2vIggWr2V/HZXPeFzupWskLagD/Ky23TcxEgI3fmKQbAyDw==
+
 cytoscape-undo-redo@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/cytoscape-undo-redo/-/cytoscape-undo-redo-1.3.3.tgz#63431a0b22f639f3bb594c6060b4ab641eea0a05"

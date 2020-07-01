@@ -16,18 +16,19 @@ const c = (function () {
       reducible,
       comutative,
       optype,
+      numOperands,
     } = node.props;
 
     const classes = [node.name];
     types.push(node.name);
 
     if (reducible) { classes.push('reducible'); }
-    if (optype === 'binary' && !comutative) { classes.push('swap'); }
+    if (optype === 'binary' && comutative === false) { classes.push('swap'); }
 
     nodeTypes[node.name] = {
       group: 'nodes',
       classes,
-      data: { optype, type: node.name },
+      data: { optype, type: node.name, numOperands },
     };
 
     styles.push({
@@ -70,6 +71,6 @@ const c = (function () {
   };
 }());
 
-console.log(c.node('add'));
-console.log(c.node('sub'));
+// console.log(c.node('add'));
+// console.log(c.node('sub'));
 export default c;

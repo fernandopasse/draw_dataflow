@@ -52,5 +52,14 @@
       "border-color": "#1b5e20",
       "border-width": 3
     }
+  },
+  {
+    "selector": ".invalid",
+    "css": {
+      "background-color": "red",
+      "line-color": "red",
+      "target-arrow-color": "red",
+      "source-arrow-color": "red"
+    }
   }
 ]

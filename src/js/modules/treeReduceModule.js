@@ -23,7 +23,7 @@ export default function treeReduceModule(opnode, cy, nodeTypes) {
   //   nodesarray = nodesarray;// .toArray()
   while (arrlength > 2) {
     for (let i = 0; i < parseInt(arrlength / 2, 10); i += 1) {
-      console.log('i', i);
+      // console.log('i', i);
       // nid = v4();
       // newNode = nodeTypes.nodes()
       // let tnode = { ...(nodeTypes.node(type)), bb: i };
@@ -32,7 +32,7 @@ export default function treeReduceModule(opnode, cy, nodeTypes) {
         ...nodeTypes.node(type),
         data,
       }); // .toArray()[0]
-      console.log(newNode.data());
+      // console.log(newNode.data());
       nid = newNode.id();
       // nid = newNode.id();
 

@@ -98,13 +98,8 @@ export default function contextMenus(cy, nodeTypes) {
         tooltipText: 'Remover NODOs ou ARESTAS selecionadas',
         coreAsWell: true,
         onClickFunction() {
-          const reduceNodes = cy
-            .$(':selected')
-            .filter('edge')
-            .targets()
-            .filter('.reduce');
           cy.$(':selected').remove();
-          reduceNodes.forEach((node) => {
+          cy.$('.reduce').forEach((node) => {
             if (node.indegree() <= 2) {
               node.removeClass('reduce');
             }

@@ -1,5 +1,5 @@
+import { v4 } from 'uuid';
 import adjustLayoutModule from './adjustLayout';
-import { v4 } from 'uuid'
 
 export default function importModule(cy) {
   const input = document.createElement('input');
@@ -20,7 +20,7 @@ export default function importModule(cy) {
           if (map[elementItem.data.id] === undefined) {
             map[elementItem.data.id] = v4();
             elementItem.data.id = map[elementItem.data.id];
-            elementItem.classes = elementItem.data.type
+            elementItem.classes = elementItem.data.type;
             elements.push(element);
           } else {
             throw new Error('Não pode continuar o processamento do arquivo!');
