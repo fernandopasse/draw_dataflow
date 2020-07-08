@@ -38,6 +38,11 @@ const initconfig = {
     nodes: [
       {
         group: 'nodes',
+        data: { id: 'np' },
+        classes: ['parent'],
+      },
+      {
+        group: 'nodes',
         data: { id: 'n0', type: 'sub', numOperands: 2 },
         classes: ['sub'],
       },
@@ -48,12 +53,12 @@ const initconfig = {
       },
       {
         group: 'nodes',
-        data: { id: 'i1', type: 'input' },
+        data: { id: 'i1', type: 'input', parent: 'np' },
         classes: ['input'],
       },
       {
         group: 'nodes',
-        data: { id: 'i2', type: 'input' },
+        data: { id: 'i2', type: 'input', parent: 'np' },
         classes: ['input'],
       },
       {
@@ -63,7 +68,7 @@ const initconfig = {
       },
       {
         group: 'nodes',
-        data: { id: 'i4', type: 'input' },
+        data: { id: 'i4', type: 'input', parent: 'np' },
         classes: ['input'],
       },
       {
@@ -73,7 +78,7 @@ const initconfig = {
       },
       {
         group: 'nodes',
-        data: { id: 'n7', type: 'add' },
+        data: { id: 'n7', type: 'add', parent: 'np' },
         classes: ['add', 'reducible'],
       },
       {
@@ -138,6 +143,8 @@ cy.on('click', 'node', evt => {
     elem.removeClass('eh-preview');
     // console.log(elem.classes());
   });
+
+  console.log('nodeInfo', evt.target.data());
 });
 
 cy.nodeHtmlLabel([

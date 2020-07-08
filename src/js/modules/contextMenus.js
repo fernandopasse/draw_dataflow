@@ -177,9 +177,10 @@ export default function contextMenus(cy, nodeTypes) {
         content: 'Desagrupar elementos',
         tooltipText: 'Desagrupar elementos',
         selector: '.parent',
-        onClickFunction() {
-          const selectedElements = cy.$(':selected');
-          ungroup(selectedElements, cy);
+        onClickFunction(event) {
+          ungroup(event.target || event.cyTarget, cy);
+          // const selectedElements = cy.$(':selected');
+          // ungroup(selectedElements, cy);
         },
       },
     ],
