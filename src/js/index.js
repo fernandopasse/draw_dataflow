@@ -15,7 +15,6 @@ contextMenusModule(cy, nodeTypes);
 cy.edgehandles({
   noEdgeEventsInDraw: true,
   start(sourceNode) {
-    console.log(cy.$('node[numOperands>0]').length);
     cy.$('node[numOperands>0]')
       .filter(
         node =>
@@ -24,16 +23,13 @@ cy.edgehandles({
       .addClass('invalid');
   },
   stop() {
-    console.log(cy.$('node[numOperands>0]').length);
     cy.$('node[numOperands>0]').removeClass('invalid');
   },
   edgeType(sourceNode, targetNode) {
     if (targetNode.indegree() >= targetNode.data('numOperands')) {
       return null;
     }
-    // can return 'flat' for flat edges between nodes or 'node' for intermediate node between them
-    // returning null/undefined means an edge can't be added between the two nodes
-    return {};
+    return 'flat';
   },
 
   complete(sourceNode, targetNode, _) {

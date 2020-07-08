@@ -1,6 +1,7 @@
 import 'bootstrap/js/dist/dropdown';
 import { v4 } from 'uuid';
 import treeReduceModule from './treeReduceModule';
+import { group, ungroup } from './groupModule';
 
 // import idgen from '../utils/idGenerator';
 
@@ -161,6 +162,26 @@ export default function contextMenus(cy, nodeTypes) {
           treeReduceModule(event.target || event.cyTarget, cy, nodeTypes);
         },
       },
+      {
+        id: 'group',
+        content: 'Agrupar elementos',
+        tooltipText: 'Agrupar elementos',
+        onClickFunction() {
+          const selectedElements = cy.$(':selected');
+          group(selectedElements, cy);
+          // TODO: remover seleção
+        },
+      },
+      {
+        id: 'ungroup',
+        content: 'Desagrupar elementos',
+        tooltipText: 'Desagrupar elementos',
+        selector: '.parent',
+        onClickFunction() {
+          const selectedElements = cy.$(':selected');
+          ungroup(selectedElements, cy);
+        },
+      },
     ],
     menuItemClasses: ['dropdown-item'],
     contextMenuClasses: ['dropdown-menu'],
@@ -168,10 +189,17 @@ export default function contextMenus(cy, nodeTypes) {
 
   cy.on('cxttap', () => {
     console.log(cy.$(':selected').length);
-    if (cy.$(':selected').length > 0) {
+    const selectedElements = cy.$(':selected');
+    if (selectedElements.length > 0) {
       menus.showMenuItem('remover-selecionado');
     } else {
       menus.hideMenuItem('remover-selecionado');
+    }
+
+    if (selectedElements.filter('node').length > 1) {
+      menus.showMenuItem('group');
+    } else {
+      menus.hideMenuItem('group');
     }
   });
 }

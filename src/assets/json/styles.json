@@ -27,7 +27,7 @@
       "height": 15,
       "shape": "ellipse",
       "overlay-opacity": 0,
-      "border-width": 5,
+      "border-width": 3,
       "border-opacity": 0,
       "border-color": "#ab000d"
     }
@@ -62,6 +62,14 @@
       "source-arrow-color": "red",
       "border-color": "red",
       "border-width": 5
+    }
+  },
+  {
+    "selector": ".IOperator",
+    "css": {
+      "shape": "ellipse",
+      "width": 70,
+      "text-decoration": "underline"
     }
   }
 ]

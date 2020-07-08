@@ -62,9 +62,9 @@
     },
     "style": {
       "background-color": "#fff",
-      "label": "addi",
       "text-halign": "center",
-      "text-valign": "center"
+      "text-valign": "center",
+      "text-margin-y": -10
     }
   },
   {

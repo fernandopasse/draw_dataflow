@@ -38,7 +38,7 @@ const initconfig = {
     nodes: [
       {
         group: 'nodes',
-        data: { id: 'n0', type: 'sub' },
+        data: { id: 'n0', type: 'sub', numOperands: 2 },
         classes: ['sub'],
       },
       {
@@ -78,8 +78,8 @@ const initconfig = {
       },
       {
         group: 'nodes',
-        data: { id: 'i5', type: 'input' },
-        classes: ['input'],
+        data: { id: 'i5', type: 'addi', iVal: 58010 },
+        classes: ['addi', 'IOperator'],
       },
     ],
     edges: [
@@ -102,6 +102,10 @@ const initconfig = {
       {
         group: 'edges',
         data: { id: 'e4', source: 'n6', target: 'n1' },
+      },
+      {
+        group: 'edges',
+        data: { id: 'e5', source: 'n6', target: 'n1' },
       },
       // {
       //     group: 'edges',
@@ -136,6 +140,15 @@ cy.on('click', 'node', evt => {
   });
 });
 
+cy.nodeHtmlLabel([
+  {
+    query: '.IOperator',
+    cssClass: 'iopbox',
+    tpl(data) {
+      return `<p>${data.type}</p><p>${data.iVal}</p>`;
+    },
+  },
+]);
 // cy.on('add', 'edge', (evt) => {
 //   console.log(evt.target.data());
 // });
