@@ -71,5 +71,17 @@
       "width": 70,
       "text-decoration": "underline"
     }
+  },
+  {
+    "selector": ".operand",
+    "style": {
+      "label": "data(opNum)",
+      "text-background-color": "rgba(245, 245, 245)",
+      "text-background-opacity": 0.5,
+      "font-weight": "bold",
+      "font-size": 20,
+      "text-background-shape": "round-rectangle",
+      "text-background-padding" : 5
+    }
   }
 ]

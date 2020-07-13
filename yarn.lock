@@ -2289,6 +2289,11 @@ cytoscape-cola@^2.3.1:
   dependencies:
     webcola "^3.4.0"
 
+cytoscape-compound-drag-and-drop@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cytoscape-compound-drag-and-drop/-/cytoscape-compound-drag-and-drop-1.0.0.tgz#19bafe2b804d8275d8dae89724597e7de5bf5fd0"
+  integrity sha512-JbRR3+jrVd89l9k04L/YEKw9pFSc5gfQnGcAoDUGeJVe/6gMzQhBLWlytspGc95l8+45jlRERZt7tG1CsQ0GCQ==
+
 cytoscape-context-menus@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/cytoscape-context-menus/-/cytoscape-context-menus-3.1.0.tgz#82374039f6c55c62ac1bbe5214f917eb013ff43f"

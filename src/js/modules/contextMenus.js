@@ -1,7 +1,14 @@
 import 'bootstrap/js/dist/dropdown';
 import { v4 } from 'uuid';
 import treeReduceModule from './treeReduceModule';
-import { group, ungroup } from './groupModule';
+import {
+  group,
+  ungroup,
+  subgroup,
+  removeFromGroup,
+  removeElements,
+} from './groupModule';
+// import removeElements from './removeModule';
 
 // import idgen from '../utils/idGenerator';
 
@@ -33,19 +40,12 @@ export default function contextMenus(cy, nodeTypes) {
         coreAsWell: true,
         onClickFunction(event) {
           const { x, y } = event.position || event.cyPosition;
-          const node = nodeTypes.node(type);
-          const data = {
-            ...node.data,
-            id: v4(),
-          };
-          cy.add({
-            ...node,
-            data,
-            position: {
-              x,
-              y,
-            },
+          const node = nodeTypes.node({
+            type,
+            data: { id: v4() },
+            position: { x, y },
           });
+          cy.add(node);
         },
       };
       // ...(menuopt || {}),
@@ -99,11 +99,11 @@ export default function contextMenus(cy, nodeTypes) {
         tooltipText: 'Remover NODOs ou ARESTAS selecionadas',
         coreAsWell: true,
         onClickFunction() {
-          cy.$(':selected').remove();
+          const target = cy.$(':selected');
+
+          removeElements(target, cy);
           cy.$('.reduce').forEach(node => {
-            if (node.indegree() <= 2) {
-              node.removeClass('reduce');
-            }
+            if (node.indegree() < 3) node.removeClass('reduce');
           });
         },
       },
@@ -114,9 +114,9 @@ export default function contextMenus(cy, nodeTypes) {
         selector: 'node',
         onClickFunction(event) {
           const target = event.target || event.cyTarget;
-          const reduceNBTargets = target.outgoers().targets('reduce');
-          target.remove();
-          reduceNBTargets.forEach(node => {
+          // target.remove();
+          removeElements(target, cy);
+          cy.$('.reduce').forEach(node => {
             if (node.indegree() < 3) node.removeClass('reduce');
           });
         },
@@ -128,9 +128,9 @@ export default function contextMenus(cy, nodeTypes) {
         selector: 'edge',
         onClickFunction(event) {
           const target = event.target || event.cyTarget;
-          const reduceNodeTargets = target.targets('reduce');
+          // const reduceNodeTargets = target.targets('reduce');
           target.remove();
-          reduceNodeTargets.forEach(node => {
+          cy.$('.reduce').forEach(node => {
             if (node.indegree() < 3) node.removeClass('reduce');
           });
         },
@@ -167,9 +167,10 @@ export default function contextMenus(cy, nodeTypes) {
         content: 'Agrupar elementos',
         tooltipText: 'Agrupar elementos',
         onClickFunction() {
-          const selectedElements = cy.$(':selected');
+          const selectedElements = cy.$('.nodes,:selected');
+          console.log(selectedElements.length);
           group(selectedElements, cy);
-          // TODO: remover seleção
+          selectedElements.unselect();
         },
       },
       {
@@ -181,6 +182,27 @@ export default function contextMenus(cy, nodeTypes) {
           ungroup(event.target || event.cyTarget, cy);
           // const selectedElements = cy.$(':selected');
           // ungroup(selectedElements, cy);
+        },
+      },
+      {
+        id: 'subgroup',
+        content: 'Criar subgrupo',
+        tooltipText: 'Criar subgrupo',
+        onClickFunction(_) {
+          subgroup(cy.$('.nodes,:selected'), cy);
+          cy.nodes().unselect();
+          // const selectedElements = cy.$(':selected');
+          // ungroup(selectedElements, cy);
+        },
+      },
+      {
+        id: 'removeGroup',
+        content: 'Remover do grupo',
+        tooltipText: 'Remover do grupo',
+        selector: 'node > node',
+        onClickFunction(event) {
+          const target = event.target || event.cyTarget;
+          removeFromGroup(target);
         },
       },
     ],
@@ -197,10 +219,25 @@ export default function contextMenus(cy, nodeTypes) {
       menus.hideMenuItem('remover-selecionado');
     }
 
-    if (selectedElements.filter('node').length > 1) {
+    // Group menus
+    const selectedNodes = selectedElements.filter('node');
+    if (selectedNodes.length > 1) {
       menus.showMenuItem('group');
+
+      if (
+        selectedNodes.parent().length === 1 &&
+        selectedNodes.parent().children().contains(selectedNodes) &&
+        selectedNodes.parent().children().length !== selectedNodes.length
+      ) {
+        menus.showMenuItem('subgroup');
+        // menus.hideMenuItem('group');
+      } else {
+        menus.hideMenuItem('subgroup');
+      }
     } else {
       menus.hideMenuItem('group');
     }
+
+    // }
   });
 }

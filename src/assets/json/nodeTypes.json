@@ -46,7 +46,7 @@
     "props": {
       "optype": "binary",
       "reducible": true,
-      "comutative": true
+      "commutative": true
     },
     "style": {
       "background-color": "#fff",
@@ -57,7 +57,7 @@
     "name":"addi",
     "props": {
       "optype": "IOperator",
-      "reducible": true,
+      "reducible": false,
       "numOperands": 1
     },
     "style": {
@@ -71,14 +71,42 @@
     "name":"multi",
     "props": {
       "optype": "IOperator",
-      "reducible": true,
+      "reducible": false,
       "numOperands": 1
     },
     "style": {
       "background-color": "#fff",
-      "label": "multi",
       "text-halign": "center",
-      "text-valign": "center"
+      "text-valign": "center",
+      "text-margin-y": -10
+    }
+  },
+  {
+    "name":"divi",
+    "props": {
+      "optype": "IOperator",
+      "reducible": false,
+      "numOperands": 1
+    },
+    "style": {
+      "background-color": "#fff",
+      "text-halign": "center",
+      "text-valign": "center",
+      "text-margin-y": -10
+    }
+  },
+  {
+    "name":"modi",
+    "props": {
+      "optype": "IOperator",
+      "reducible": false,
+      "numOperands": 1
+    },
+    "style": {
+      "background-color": "#fff",
+      "text-halign": "center",
+      "text-valign": "center",
+      "text-margin-y": -10
     }
   },
   {
@@ -86,7 +114,7 @@
     "props": {
       "optype": "binary",
       "reducible": true,
-      "comutative": true
+      "commutative": true
     },
     "style": {
       "background-color": "#fff",
@@ -97,7 +125,7 @@
     "name":"slt",
     "props": {
       "optype": "binary",
-      "comutative": true,
+      "commutative": true,
       "numOperands": 2
     },
     "style": {
@@ -110,7 +138,7 @@
     "props": {
       "optype": "binary",
       "reducible": true,
-      "comutative": true
+      "commutative": true
     },
     "style": {
       "background-color": "#fff",
@@ -122,7 +150,7 @@
     "props": {
       "optype": "binary",
       "reducible": true,
-      "comutative": true
+      "commutative": true
     },
     "style": {
       "background-color": "#fff",
@@ -134,7 +162,7 @@
     "props": {
       "optype": "binary",
       "reducible": true,
-      "comutative": true
+      "commutative": true
     },
     "style": {
       "background-color": "#fff",
@@ -146,7 +174,7 @@
     "props": {
       "optype": "binary",
       "reducible": true,
-      "comutative": true
+      "commutative": true
     },
     "style": {
       "background-color": "#fff",
@@ -158,7 +186,7 @@
     "props": {
       "optype": "binary",
       "reducible": true,
-      "comutative": true
+      "commutative": true
     },
     "style": {
       "background-color": "#fff",
@@ -170,7 +198,7 @@
     "props": {
       "optype": "binary",
       "reducible": false,
-      "comutative": false,
+      "commutative": false,
       "numOperands": 2
     },
     "style": {

@@ -28,11 +28,8 @@ export default function treeReduceModule(opnode, cy, nodeTypes) {
       // nid = v4();
       // newNode = nodeTypes.nodes()
       // let tnode = { ...(nodeTypes.node(type)), bb: i };
-      const data = { ...nodeTypes.node(type).data, id: v4() };
-      newNode = cy.add({
-        ...nodeTypes.node(type),
-        data,
-      }); // .toArray()[0]
+      // const data = { ...nodeTypes.node(type).data, id: v4() };
+      newNode = cy.add(nodeTypes.node({ type, data: { id: v4() } })); // .toArray()[0]
       // console.log(newNode.data());
       nid = newNode.id();
       // nid = newNode.id();

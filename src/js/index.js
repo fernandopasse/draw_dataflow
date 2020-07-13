@@ -29,12 +29,34 @@ cy.edgehandles({
     if (targetNode.indegree() >= targetNode.data('numOperands')) {
       return null;
     }
+    if (targetNode.hasClass('parent')) {
+      return null;
+    }
     return 'flat';
   },
 
-  complete(sourceNode, targetNode, _) {
+  edgeParams(sourceNode, targetNode, _) {
+    if (targetNode.data('commutative') === false) {
+      // console.log('incomers', targetNode.incomers('edge').data());
+      const opNum = targetNode.incomers('edge').data('opNum') === 1 ? 2 : 1;
+
+      return {
+        data: {
+          opNum,
+        },
+        classes: ['operand'],
+      };
+    }
+    return {};
+  },
+
+  complete(sourceNode, targetNode, addedEles) {
     if (targetNode.hasClass('reducible') && targetNode.indegree() > 2)
       targetNode.addClass('reduce');
+    console.log(targetNode.data());
+    if (targetNode.data('commutative') === false) {
+      console.log('commute', addedEles.data(), addedEles.classes());
+    }
   },
   // previewon() {
   //   cy.$('.eh-ghost-edge').ad;

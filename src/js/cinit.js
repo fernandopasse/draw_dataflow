@@ -5,6 +5,7 @@ import clipboard from 'cytoscape-clipboard';
 import undoRedo from 'cytoscape-undo-redo';
 import cola from 'cytoscape-cola';
 import nodeHtmlLabel from 'cytoscape-node-html-label';
+// import compoundDragAndDrop from 'cytoscape-compound-drag-and-drop';
 
 import $ from 'jquery';
 import nodeTypes from './modules/nodeTypes';
@@ -41,51 +42,31 @@ const initconfig = {
         data: { id: 'np' },
         classes: ['parent'],
       },
-      {
-        group: 'nodes',
-        data: { id: 'n0', type: 'sub', numOperands: 2 },
-        classes: ['sub'],
-      },
-      {
-        group: 'nodes',
-        data: { id: 'n1', type: 'sub', numOperands: 2 },
-        classes: ['sub'],
-      },
-      {
-        group: 'nodes',
-        data: { id: 'i1', type: 'input', parent: 'np' },
-        classes: ['input'],
-      },
-      {
-        group: 'nodes',
-        data: { id: 'i2', type: 'input', parent: 'np' },
-        classes: ['input'],
-      },
-      {
-        group: 'nodes',
-        data: { id: 'i3', type: 'input' },
-        classes: ['input'],
-      },
-      {
-        group: 'nodes',
-        data: { id: 'i4', type: 'input', parent: 'np' },
-        classes: ['input'],
-      },
-      {
-        group: 'nodes',
-        data: { id: 'n6', type: 'or' },
-        classes: ['or', 'reducible'],
-      },
-      {
-        group: 'nodes',
-        data: { id: 'n7', type: 'add', parent: 'np' },
-        classes: ['add', 'reducible'],
-      },
-      {
-        group: 'nodes',
-        data: { id: 'i5', type: 'addi', iVal: 58010 },
-        classes: ['addi', 'IOperator'],
-      },
+      ...[
+        { type: 'sub', data: { id: 'n0' } },
+        { type: 'sub', data: { id: 'n1' } },
+        { type: 'input', data: { id: 'i1', parent: 'np' } },
+        { type: 'input', data: { id: 'i2', parent: 'np' } },
+        { type: 'input', data: { id: 'i3' } },
+        { type: 'input', data: { id: 'i4', parent: 'np' } },
+        { type: 'or', data: { id: 'n6' } },
+        { type: 'add', data: { id: 'n7', parent: 'np' } },
+        { type: 'addi', data: { id: 'i5', iVal: 58010 } },
+      ].map(node => nodeTypes.node(node)),
+      // {
+      //   group: 'nodes',
+      //   data: { id: 'n0', type: 'sub', numOperands: 2, commutative: false },
+      //   classes: ['sub'],
+      // },
+      // {
+      //   ...nodeTypes.node('sub'),
+      //   id: 'n1',
+      // },
+      // {
+      //   group: 'nodes',
+      //   data: { id: 'n1', type: 'sub', numOperands: 2, commutative: false },
+      //   classes: ['sub'],
+      // },
     ],
     edges: [
       {
@@ -156,6 +137,7 @@ cy.nodeHtmlLabel([
     },
   },
 ]);
+
 // cy.on('add', 'edge', (evt) => {
 //   console.log(evt.target.data());
 // });
