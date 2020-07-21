@@ -91,4 +91,20 @@ $('#adjust-layout').click(() => {
   adjustLayoutModule(cy);
 });
 
+$('#sim_cpu').click(() => {
+  const htmlstring = label => `<div class="form-group">
+      <label for="message-text" class="col-form-label">${label}:</label>
+      <input type="text" class="form-control" id="data-input">
+      </div>`;
+
+  $('#modalLongTitle').text('Simular alguma coisa');
+  $('.modal-body>form').html(htmlstring('Data'));
+
+  $('#modal-div').modal();
+});
+
+$('#cgra_conf').click(() => {
+  $('#modal-div').modal();
+});
+
 copyModule(cy);
