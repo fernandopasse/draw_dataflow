@@ -93,16 +93,14 @@ $('#adjust-layout').click(() => {
 
 $('#sim_cpu').click(() => {
   const modalBody = $('.modal-body');
+  $('.modal-dialog').addClass('modal-lg');
   modalBody.children().remove();
   const htmlstring = `<div class="row">
     <form class="col">
+      <label for="data" class="col-form-label-lg">Input</label>
       <div class="form-group">
         <label for="data" class="col-form-label">Data:</label>
         <input type="text" class="form-control" id="data-input">
-      </div>
-      <div class="form-group">
-        <label for="type" class="col-form-label">Type:</label>
-        <input type="text" class="form-control" id="data-input-type">
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -116,13 +114,10 @@ $('#sim_cpu').click(() => {
       </div>
     </form>
     <form class="col">
+      <label for="data" class="col-form-label-lg">Output</label>
       <div class="form-group">
         <label for="data" class="col-form-label">Data:</label>
         <input type="text" class="form-control" id="data-input">
-      </div>
-      <div class="form-group">
-        <label for="type" class="col-form-label">Type:</label>
-        <input type="text" class="form-control" id="data-input-type">
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -144,6 +139,49 @@ $('#sim_cpu').click(() => {
 });
 
 $('#cgra_conf').click(() => {
+  const htmlstring = `<form class="col">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">id</label>
+      <input type="text" class="form-control" id="modal-input-id" placeholder="">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="word_size">word_size</label>
+      <input type="text" class="form-control" id="modal-input-word_size" placeholder="">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="num_pe">num_pe</label>
+      <input type="text" class="form-control" id="modal-input-num_pe" placeholder="">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="num_in">num_in</label>
+      <input type="text" class="form-control" id="modal-input-num_in" placeholder="">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="num_out">num_out</label>
+      <input type="text" class="form-control" id="modal-input-num_out" placeholder="">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="net_radix">net_radix</label>
+      <input type="text" class="form-control" id="modal-input-net_radix" placeholder="">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="net_extra_stagies">net_extra_stagies</label>
+      <input type="text" class="form-control" id="modal-input-net_extra_stagies" placeholder="">
+    </div>
+  </div>
+</form>`;
+  $('.modal-dialog').removeClass('modal-lg');
+  const modalBody = $('.modal-body');
+  modalBody.children().remove();
+  modalBody.html(htmlstring);
+  $('#modalTitle').text('Configurações CGRA');
+  $('#btn-save').text('Salvar');
+  $('#btn-close').text('Fechar');
   $('#modal-div').modal();
 });
 

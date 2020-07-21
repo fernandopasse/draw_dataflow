@@ -97,7 +97,7 @@
     </footer>
 
     <div class="modal fade" id="modal-div" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" z-index="9999">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="modalTitle"></h5>
@@ -106,7 +106,43 @@
             </button>
           </div>
           <div class="modal-body">
-            <div>Teste</div>
+            <!-- <div>Teste</div> -->
+            <form class="col">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="id">id</label>
+                  <input type="text" class="form-control" id="modal-input-id" placeholder="">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="word_size">word_size</label>
+                  <input type="text" class="form-control" id="modal-input-word_size" placeholder="">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="num_pe">num_pe</label>
+                  <input type="text" class="form-control" id="modal-input-num_pe" placeholder="">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="num_in">num_in</label>
+                  <input type="text" class="form-control" id="modal-input-num_in" placeholder="">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="num_out">num_out</label>
+                  <input type="text" class="form-control" id="modal-input-num_out" placeholder="">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="net_radix">net_radix</label>
+                  <input type="text" class="form-control" id="modal-input-net_radix" placeholder="">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="net_extra_stagies">net_extra_stagies</label>
+                  <input type="text" class="form-control" id="modal-input-net_extra_stagies" placeholder="">
+                </div>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" id="btn-close" data-dismiss="modal">Close</button>
