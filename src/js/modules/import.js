@@ -50,6 +50,7 @@ export default function importModule(cy, nodeTypes) {
             elementItem.data.id = map[elementItem.data.id];
             elementItem.data.source = map[elementItem.data.source];
             elementItem.data.target = map[elementItem.data.target];
+            console.log(elementItem);
             elements.push(element);
           }
         }

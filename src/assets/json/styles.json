@@ -73,9 +73,9 @@
     }
   },
   {
-    "selector": ".operand",
+    "selector": "edge",
     "style": {
-      "label": "data(opNum)",
+      "label": "data(port)",
       "text-background-color": "rgba(245, 245, 245)",
       "text-background-opacity": 0.5,
       "font-weight": "bold",
