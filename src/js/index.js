@@ -84,7 +84,7 @@ $('#export').click(() => {
 });
 
 $('#import').click(() => {
-  importModule(cy);
+  importModule(cy, nodeTypes);
 });
 
 $('#adjust-layout').click(() => {

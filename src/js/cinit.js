@@ -35,70 +35,70 @@ const initconfig = {
 
   style: [...nodeTypes.styles, ...styles],
 
-  elements: {
-    nodes: [
-      {
-        group: 'nodes',
-        data: { id: 'np' },
-        classes: ['parent'],
-      },
-      ...[
-        { type: 'sub', data: { id: 'n0' } },
-        { type: 'sub', data: { id: 'n1' } },
-        { type: 'input', data: { id: 'i1', parent: 'np' } },
-        { type: 'input', data: { id: 'i2', parent: 'np' } },
-        { type: 'input', data: { id: 'i3' } },
-        { type: 'input', data: { id: 'i4', parent: 'np' } },
-        { type: 'or', data: { id: 'n6' } },
-        { type: 'add', data: { id: 'n7', parent: 'np' } },
-        { type: 'addi', data: { id: 'i5', iVal: 58010 } },
-      ].map(node => nodeTypes.node(node)),
-      // {
-      //   group: 'nodes',
-      //   data: { id: 'n0', type: 'sub', numOperands: 2, commutative: false },
-      //   classes: ['sub'],
-      // },
-      // {
-      //   ...nodeTypes.node('sub'),
-      //   id: 'n1',
-      // },
-      // {
-      //   group: 'nodes',
-      //   data: { id: 'n1', type: 'sub', numOperands: 2, commutative: false },
-      //   classes: ['sub'],
-      // },
-    ],
-    edges: [
-      {
-        group: 'edges',
-        data: { id: 'e0', source: 'i1', target: 'n6' },
-      },
-      {
-        group: 'edges',
-        data: { id: 'e1', source: 'i2', target: 'n6' },
-      },
-      {
-        group: 'edges',
-        data: { id: 'e2', source: 'i3', target: 'n6' },
-      },
-      {
-        group: 'edges',
-        data: { id: 'e3', source: 'i4', target: 'n6' },
-      },
-      {
-        group: 'edges',
-        data: { id: 'e4', source: 'n6', target: 'n1' },
-      },
-      {
-        group: 'edges',
-        data: { id: 'e5', source: 'n6', target: 'n1' },
-      },
-      // {
-      //     group: 'edges',
-      //     data: { id: 'e5', source: 'i5', target: 'n6' },
-      // },
-    ],
-  },
+  // elements: {
+  //   nodes: [
+  //     {
+  //       group: 'nodes',
+  //       data: { id: 'np' },
+  //       classes: ['parent'],
+  //     },
+  //     ...[
+  //       { type: 'sub', data: { id: 'n0' } },
+  //       { type: 'sub', data: { id: 'n1' } },
+  //       { type: 'input', data: { id: 'i1', parent: 'np' } },
+  //       { type: 'input', data: { id: 'i2', parent: 'np' } },
+  //       { type: 'input', data: { id: 'i3' } },
+  //       { type: 'input', data: { id: 'i4', parent: 'np' } },
+  //       { type: 'or', data: { id: 'n6' } },
+  //       { type: 'add', data: { id: 'n7', parent: 'np' } },
+  //       { type: 'addi', data: { id: 'i5', iVal: 58010 } },
+  //     ].map(node => nodeTypes.node(node)),
+  //     // {
+  //     //   group: 'nodes',
+  //     //   data: { id: 'n0', type: 'sub', numOperands: 2, commutative: false },
+  //     //   classes: ['sub'],
+  //     // },
+  //     // {
+  //     //   ...nodeTypes.node('sub'),
+  //     //   id: 'n1',
+  //     // },
+  //     // {
+  //     //   group: 'nodes',
+  //     //   data: { id: 'n1', type: 'sub', numOperands: 2, commutative: false },
+  //     //   classes: ['sub'],
+  //     // },
+  //   ],
+  //   edges: [
+  //     {
+  //       group: 'edges',
+  //       data: { id: 'e0', source: 'i1', target: 'n6' },
+  //     },
+  //     {
+  //       group: 'edges',
+  //       data: { id: 'e1', source: 'i2', target: 'n6' },
+  //     },
+  //     {
+  //       group: 'edges',
+  //       data: { id: 'e2', source: 'i3', target: 'n6' },
+  //     },
+  //     {
+  //       group: 'edges',
+  //       data: { id: 'e3', source: 'i4', target: 'n6' },
+  //     },
+  //     {
+  //       group: 'edges',
+  //       data: { id: 'e4', source: 'n6', target: 'n1' },
+  //     },
+  //     {
+  //       group: 'edges',
+  //       data: { id: 'e5', source: 'n6', target: 'n1' },
+  //     },
+  //     // {
+  //     //     group: 'edges',
+  //     //     data: { id: 'e5', source: 'i5', target: 'n6' },
+  //     // },
+  //   ],
+  // },
 };
 
 const cy = cytoscape(initconfig);
@@ -120,12 +120,12 @@ cy.on('mouseout', 'node,edge', evt => {
 
 cy.on('click', 'node', evt => {
   evt.target.incomers().forEach(elem => {
-    console.log(elem);
+    // cons elements.forEach(e => console.log(e));ole.log(elem);
     elem.removeClass('eh-preview');
     // console.log(elem.classes());
   });
 
-  console.log('nodeInfo', evt.target.data());
+  // console.log('nodeInfo', evt.target.data());
 });
 
 cy.nodeHtmlLabel([
@@ -133,7 +133,7 @@ cy.nodeHtmlLabel([
     query: '.IOperator',
     cssClass: 'iopbox',
     tpl(data) {
-      return `<p>${data.type}</p><p>${data.iVal}</p>`;
+      return `<p>${data.type}</p><p>${data.value}</p>`;
     },
   },
 ]);
