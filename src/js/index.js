@@ -92,14 +92,54 @@ $('#adjust-layout').click(() => {
 });
 
 $('#sim_cpu').click(() => {
-  const htmlstring = label => `<div class="form-group">
-      <label for="message-text" class="col-form-label">${label}:</label>
-      <input type="text" class="form-control" id="data-input">
-      </div>`;
-
-  $('#modalLongTitle').text('Simular alguma coisa');
-  $('.modal-body>form').html(htmlstring('Data'));
-
+  const modalBody = $('.modal-body');
+  modalBody.children().remove();
+  const htmlstring = `<div class="row">
+    <form class="col">
+      <div class="form-group">
+        <label for="data" class="col-form-label">Data:</label>
+        <input type="text" class="form-control" id="data-input">
+      </div>
+      <div class="form-group">
+        <label for="type" class="col-form-label">Type:</label>
+        <input type="text" class="form-control" id="data-input-type">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id">Id</label>
+          <input type="text" class="form-control" id="data-input-id" placeholder="">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="size">Size</label>
+          <input type="number" class="form-control" id="data-input-size" placeholder="">
+        </div>
+      </div>
+    </form>
+    <form class="col">
+      <div class="form-group">
+        <label for="data" class="col-form-label">Data:</label>
+        <input type="text" class="form-control" id="data-input">
+      </div>
+      <div class="form-group">
+        <label for="type" class="col-form-label">Type:</label>
+        <input type="text" class="form-control" id="data-input-type">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id">Id</label>
+          <input type="text" class="form-control" id="data-input-id" placeholder="">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="size">Size</label>
+          <input type="number" class="form-control" id="data-input-size" placeholder="">
+        </div>
+      </div>
+    </form>
+  </div>`;
+  modalBody.html(htmlstring);
+  $('#modalTitle').text('Simular CPU');
+  $('#btn-save').text('Simular');
+  $('#btn-close').text('Fechar');
   $('#modal-div').modal();
 });
 

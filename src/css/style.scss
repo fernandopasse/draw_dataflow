@@ -36,7 +36,12 @@
             padding: 4px;
         }
     }   
-
     
 }
 
+
+.modal form {
+    & + form {
+        border-left: 1px solid #ced4da;
+    }   
+}
